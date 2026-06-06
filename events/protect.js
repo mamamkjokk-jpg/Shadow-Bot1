@@ -18,11 +18,11 @@ module.exports = (api, event, config, loadData, saveData) => {
 
     if (newName && newName !== oldName) {
       cooldowns[threadID] = now;
-      api.setTitle(oldName, threadID, (err) => {
-        if (!err) {
+      api.gcname(oldName, threadID)
+        .then(() => {
           api.sendMessage(`⚠️ تم استعادة اسم الجروب:\n"${oldName}"`, threadID);
-        }
-      });
+        })
+        .catch(() => {});
     }
   }
 
@@ -34,11 +34,11 @@ module.exports = (api, event, config, loadData, saveData) => {
     if (newNick !== oldNick) {
       cooldowns[threadID] = now;
       setTimeout(() => {
-        api.changeNickname(oldNick, threadID, targetID, (err) => {
-          if (!err) {
+        api.setNickname(oldNick, threadID, targetID)
+          .then(() => {
             api.sendMessage(`⚠️ تم استعادة الكنية في الجروب.`, threadID);
-          }
-        });
+          })
+          .catch(() => {});
       }, 1500);
     }
   }

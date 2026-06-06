@@ -1,4 +1,4 @@
-module.exports = (api, event, args, startTime, loadData, saveData) => {
+module.exports = async (api, event, args, startTime, loadData, saveData) => {
   const data = loadData();
   const threadID = event.threadID;
 
@@ -12,26 +12,29 @@ module.exports = (api, event, args, startTime, loadData, saveData) => {
     return api.sendMessage("🔓 تم إيقاف الحماية في هذا الجروب.", threadID);
   }
 
-  api.getThreadInfo(threadID, (err, info) => {
-    if (err || !info) return api.sendMessage("❌ فشل الحصول على معلومات الجروب.", threadID);
+  let info;
+  try {
+    info = await api.getThreadInfo(threadID);
+  } catch (err) {
+    return api.sendMessage("❌ فشل الحصول على معلومات الجروب.", threadID);
+  }
 
-    const nicknames = {};
-    const ids = info.participantIDs || [];
-    for (const uid of ids) {
-      const userInfo = (info.userInfo || []).find(u => u.id === uid);
-      nicknames[uid] = userInfo?.name || "";
-    }
+  const nicknames = {};
+  const ids = info.participantIDs || [];
+  for (const uid of ids) {
+    const userInfo = (info.userInfo || []).find(u => u.id === uid);
+    nicknames[uid] = userInfo?.name || "";
+  }
 
-    data.protected[threadID] = {
-      active: true,
-      threadName: info.threadName || "",
-      nicknames
-    };
+  data.protected[threadID] = {
+    active: true,
+    threadName: info.threadName || "",
+    nicknames
+  };
 
-    saveData(data);
-    api.sendMessage(
-      `🛡️ تم تفعيل الحماية.\n━━━━━━━━━━━━━━\n📌 اسم الجروب: ${info.threadName || "بدون اسم"}\n👥 عدد الأعضاء: ${ids.length}\n━━━━━━━━━━━━━━\nأي تغيير في الاسم أو الكنية سيُعاد تلقائياً.`,
-      threadID
-    );
-  });
+  saveData(data);
+  api.sendMessage(
+    `🛡️ تم تفعيل الحماية.\n━━━━━━━━━━━━━━\n📌 اسم الجروب: ${info.threadName || "بدون اسم"}\n👥 عدد الأعضاء: ${ids.length}\n━━━━━━━━━━━━━━\nأي تغيير في الاسم أو الكنية سيُعاد تلقائياً.`,
+    threadID
+  );
 };

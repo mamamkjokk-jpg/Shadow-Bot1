@@ -30,7 +30,7 @@ module.exports = async (api, event, args, startTime, loadData, saveData, automic
         "✦ ══════════════════ ✦\n⚔️  تَسجيلُ دُخولِ اللّوردِ المُقَدَّسِ شادو\n👑  البوتُ حَلَّ ضيفاً عليكُم\n✦ ══════════════════ ✦",
         chosen.threadID
       );
-    } catch (err) {
+    } catch {
       api.sendMessage("❌ فشل الإرسال — ربما البوت مش في هذا الجروب.", threadID);
     }
 
@@ -39,10 +39,8 @@ module.exports = async (api, event, args, startTime, loadData, saveData, automic
 
   await api.sendMessage("⏳ جاري جلب قائمة الجروبات...", threadID);
 
-  api.getThreadList(30, null, ["INBOX"], (err, threads) => {
-    if (err || !threads) {
-      return api.sendMessage("❌ فشل جلب القائمة.\n" + (err?.message || ""), threadID);
-    }
+  try {
+    const threads = await api.getThreadList(30, null, ["INBOX"]);
 
     const groups = threads.filter(t => t.isGroup);
 
@@ -64,5 +62,7 @@ module.exports = async (api, event, args, startTime, loadData, saveData, automic
     );
 
     setTimeout(() => { delete pendingNav[senderID]; }, 60000);
-  });
+  } catch (err) {
+    api.sendMessage("❌ فشل جلب القائمة.\n" + (err?.message || ""), threadID);
+  }
 };
