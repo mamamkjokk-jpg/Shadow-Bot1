@@ -1,6 +1,6 @@
 const pendingNav = {};
 
-module.exports = (api, event, args, startTime, loadData, saveData, automicTimers, config) => {
+module.exports = async (api, event, args, startTime, loadData, saveData, automicTimers, config) => {
   const threadID = event.threadID;
   const senderID = event.senderID;
   const data = loadData();
@@ -20,49 +20,49 @@ module.exports = (api, event, args, startTime, loadData, saveData, automicTimers
     const chosen = cache.threads[num];
     delete pendingNav[senderID];
 
-    return api.sendMessage(
+    await api.sendMessage(
       `🔗 الدخول إلى: ${chosen.name || "جروب بدون اسم"}\nجاري إرسال رسالة الدخول...`,
-      threadID,
-      () => {
-        api.sendMessage(
-          "✦ ══════════════════ ✦\n⚔️  تَسجيلُ دُخولِ اللّوردِ المُقَدَّسِ شادو\n👑  البوتُ حَلَّ ضيفاً عليكُم\n✦ ══════════════════ ✦",
-          chosen.threadID,
-          (err) => {
-            if (err) {
-              api.sendMessage("❌ فشل الإرسال — ربما البوت مش في هذا الجروب.", threadID);
-            }
-          }
-        );
-      }
+      threadID
     );
+
+    try {
+      await api.sendMessage(
+        "✦ ══════════════════ ✦\n⚔️  تَسجيلُ دُخولِ اللّوردِ المُقَدَّسِ شادو\n👑  البوتُ حَلَّ ضيفاً عليكُم\n✦ ══════════════════ ✦",
+        chosen.threadID
+      );
+    } catch (err) {
+      api.sendMessage("❌ فشل الإرسال — ربما البوت مش في هذا الجروب.", threadID);
+    }
+
+    return;
   }
 
-  api.sendMessage("⏳ جاري جلب قائمة الجروبات...", threadID, () => {
-    api.getThreadList(30, null, ["INBOX"], (err, threads) => {
-      if (err || !threads) {
-        return api.sendMessage("❌ فشل جلب القائمة.\n" + (err?.message || ""), threadID);
-      }
+  await api.sendMessage("⏳ جاري جلب قائمة الجروبات...", threadID);
 
-      const groups = threads.filter(t => t.isGroup);
+  api.getThreadList(30, null, ["INBOX"], (err, threads) => {
+    if (err || !threads) {
+      return api.sendMessage("❌ فشل جلب القائمة.\n" + (err?.message || ""), threadID);
+    }
 
-      if (groups.length === 0) {
-        return api.sendMessage("❌ البوت مش في أي جروب حالياً.", threadID);
-      }
+    const groups = threads.filter(t => t.isGroup);
 
-      pendingNav[senderID] = { threads: groups, time: Date.now() };
+    if (groups.length === 0) {
+      return api.sendMessage("❌ البوت مش في أي جروب حالياً.", threadID);
+    }
 
-      const list = groups.map((g, i) => {
-        const name = g.name || "بدون اسم";
-        const count = g.participantIDs?.length || 0;
-        return `${i + 1}. ${name} (${count} عضو)`;
-      }).join("\n");
+    pendingNav[senderID] = { threads: groups, time: Date.now() };
 
-      api.sendMessage(
-        `📋 الجروبات اللي فيها البوت (${groups.length}):\n━━━━━━━━━━━━━━\n${list}\n━━━━━━━━━━━━━━\n💡 ${prefix}قروبات [رقم] للدخول وإرسال رسالة الترحيب.`,
-        threadID
-      );
+    const list = groups.map((g, i) => {
+      const name = g.name || "بدون اسم";
+      const count = g.participantIDs?.length || 0;
+      return `${i + 1}. ${name} (${count} عضو)`;
+    }).join("\n");
 
-      setTimeout(() => { delete pendingNav[senderID]; }, 60000);
-    });
+    api.sendMessage(
+      `📋 الجروبات اللي فيها البوت (${groups.length}):\n━━━━━━━━━━━━━━\n${list}\n━━━━━━━━━━━━━━\n💡 ${prefix}قروبات [رقم] للدخول وإرسال رسالة الترحيب.`,
+      threadID
+    );
+
+    setTimeout(() => { delete pendingNav[senderID]; }, 60000);
   });
 };

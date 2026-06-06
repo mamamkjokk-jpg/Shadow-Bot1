@@ -2,6 +2,14 @@ const ws3 = require("ws3-fca");
 const fs = require("fs");
 const os = require("os");
 
+process.on("uncaughtException", (err) => {
+  console.log("⚠️ خطأ غير متوقع (البوت يواصل):", err.message);
+});
+
+process.on("unhandledRejection", (reason) => {
+  console.log("⚠️ Promise rejection (البوت يواصل):", reason);
+});
+
 const config = {
   BOT_NAME: "ᴹᵃʳᶜᵒ",
   DEV_ID: "61574898094421"
@@ -88,9 +96,12 @@ ws3.login({ appState }, (err, api) => {
         return api.sendMessage("⛔ هذا الأمر مخصص للمطور فقط.", event.threadID);
       }
       try {
-        commands[cmd](api, event, args, startTime, loadData, saveData, automicTimers, config, hostingInfo);
+        const result = commands[cmd](api, event, args, startTime, loadData, saveData, automicTimers, config, hostingInfo);
+        if (result && typeof result.catch === "function") {
+          result.catch(e => console.log("خطأ في الأمر:", e.message));
+        }
       } catch (e) {
-        console.log("خطأ في الأمر:", e);
+        console.log("خطأ في الأمر:", e.message);
       }
       return;
     }
