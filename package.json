@@ -1,0 +1,15 @@
+{
+  "name": "marco-bot",
+  "version": "1.0.0",
+  "description": "Marco Facebook Messenger Bot",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "ws3-fca": "https://github.com/NethWs3Dev/ws3-fca/archive/refs/heads/main.tar.gz"
+  },
+  "overrides": {
+    "es5-ext": "0.10.53"
+  }
+}
