@@ -6,25 +6,16 @@ module.exports = async (api, event, args, startTime, loadData, saveData, automic
     delete automicTimers[threadID];
   }
 
-  await api.sendMessage(
-    "⚔️ اللورد شادو يغادر الميدان...\nإلى اللقاء.",
-    threadID
-  );
+  try {
+    await api.sendMessage("إلى اللقاء.", threadID);
+  } catch {}
+
+  await new Promise(r => setTimeout(r, 1500));
 
   const botID = api.getCurrentUserID();
   try {
-    if (typeof api.leaveThread === "function") {
-      api.leaveThread(threadID, (err) => {
-        if (err) {
-          api.removeUserFromGroup(botID, threadID, () => {});
-        }
-      });
-    } else {
-      api.removeUserFromGroup(botID, threadID, (err) => {
-        if (err) console.log("خطأ خروج:", err);
-      });
-    }
+    await api.gcmember("remove", botID, threadID);
   } catch (e) {
-    console.log("خطأ خروج:", e);
+    console.log("خطأ خروج:", e?.message);
   }
 };
