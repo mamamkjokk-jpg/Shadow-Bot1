@@ -3,11 +3,11 @@ const fs = require("fs");
 const os = require("os");
 
 process.on("uncaughtException", (err) => {
-  console.log("⚠️ خطأ غير متوقع (البوت يواصل):", err.message);
+  console.log("خطأ:", err.message);
 });
 
 process.on("unhandledRejection", (reason) => {
-  console.log("⚠️ Promise rejection (البوت يواصل):", reason);
+  console.log("خطأ:", reason);
 });
 
 const config = {
@@ -32,28 +32,53 @@ function saveData(data) {
 const commands = {};
 fs.readdirSync("./commands").forEach(file => {
   if (file.endsWith(".js")) {
-    const name = file.replace(".js", "");
-    commands[name] = require(`./commands/${file}`);
+    commands[file.replace(".js", "")] = require(`./commands/${file}`);
   }
 });
 
 const events = {};
 fs.readdirSync("./events").forEach(file => {
   if (file.endsWith(".js")) {
-    const name = file.replace(".js", "");
-    events[name] = require(`./events/${file}`);
+    events[file.replace(".js", "")] = require(`./events/${file}`);
   }
 });
 
 const automicTimers = {};
 
+// Track message IDs sent by the bot per thread (max 50 per thread)
+const botSentMessages = {};
+
+function trackMsg(threadID, msgID) {
+  if (!threadID || !msgID) return;
+  if (!botSentMessages[threadID]) botSentMessages[threadID] = [];
+  botSentMessages[threadID].push(msgID);
+  if (botSentMessages[threadID].length > 50) botSentMessages[threadID].shift();
+}
+
 ws3.login({ appState }, (err, api) => {
   if (err) return console.log("خطأ في تسجيل الدخول:", err);
 
   console.log("✅ البوت يعمل");
+  console.log("🤖 ID البوت:", api.getCurrentUserID());
 
-  const BOT_ID = api.getCurrentUserID();
-  console.log("🤖 ID البوت:", BOT_ID);
+  // Wrap sendMessage to capture sent message IDs
+  const _origSend = api.sendMessage.bind(api);
+  api.sendMessage = (msg, threadID, cb) => {
+    if (typeof cb === "function") {
+      return _origSend(msg, threadID, (e2, info) => {
+        if (!e2 && info?.messageID) trackMsg(threadID, info.messageID);
+        cb(e2, info);
+      });
+    }
+    const p = _origSend(msg, threadID);
+    if (p && typeof p.then === "function") {
+      return p.then(info => {
+        if (info?.messageID) trackMsg(threadID, info.messageID);
+        return info;
+      });
+    }
+    return p;
+  };
 
   const startTime = Date.now();
   const hostingInfo = {
@@ -74,6 +99,9 @@ ws3.login({ appState }, (err, api) => {
 
     if (!event.body) return;
 
+    // Only respond to DEV_ID
+    if (event.senderID !== config.DEV_ID) return;
+
     const body = event.body.trim();
     const data = loadData();
     const PREFIX = data.prefix || "!";
@@ -90,34 +118,20 @@ ws3.login({ appState }, (err, api) => {
       cmd = args[0].toLowerCase();
     }
 
-    if (cmd && commands[cmd]) {
-      const isAllowed = event.senderID === config.DEV_ID || event.senderID === BOT_ID;
-      if (!isAllowed) {
-        return api.sendMessage("⛔ هذا الأمر مخصص للمطور فقط.", event.threadID);
-      }
+    if (!cmd) return;
+
+    if (commands[cmd]) {
       try {
-        const result = commands[cmd](api, event, args, startTime, loadData, saveData, automicTimers, config, hostingInfo);
+        const result = commands[cmd](
+          api, event, args, startTime,
+          loadData, saveData, automicTimers,
+          config, hostingInfo, botSentMessages
+        );
         if (result && typeof result.catch === "function") {
           result.catch(e => console.log("خطأ في الأمر:", e.message));
         }
       } catch (e) {
         console.log("خطأ في الأمر:", e.message);
-      }
-      return;
-    }
-
-    if (event.messageReply && (event.senderID === config.DEV_ID || event.senderID === BOT_ID)) {
-      const number = parseInt(body.trim(), 10);
-      if (!isNaN(number) && number > 0) {
-        const msgs = data.savedMessages || [];
-        if (msgs.length === 0) {
-          return api.sendMessage("❌ لا توجد رسائل محفوظة.", event.threadID);
-        }
-        if (number >= 1 && number <= msgs.length) {
-          api.sendMessage(msgs[number - 1], event.threadID);
-        } else {
-          api.sendMessage(`❌ الرقم غير صحيح. الرسائل المتاحة: 1 - ${msgs.length}`, event.threadID);
-        }
       }
     }
   });

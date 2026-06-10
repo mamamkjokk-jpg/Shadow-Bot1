@@ -1,33 +1,21 @@
-const buildHelpGif = require("../utils/buildHelpGif");
-const fs = require("fs");
-const path = require("path");
-
-module.exports = async (api, event, args, startTime, loadData) => {
+module.exports = (api, event, args, startTime, loadData) => {
   const data = loadData();
-  const prefix = data.prefix || "!";
-  const gifPath = path.join(__dirname, "..", "assets", "help.gif");
-
-  try {
-    await buildHelpGif(prefix);
-    await api.sendMessage(
-      { attachment: fs.createReadStream(gifPath) },
-      event.threadID
-    );
-  } catch (err) {
-    console.log("خطأ help gif:", err?.message);
-    const helpText =
-`${prefix}حماية — تفعيل/إيقاف الحماية
-${prefix}اسم [اسم] — تغيير اسم الجروب
-${prefix}كنيات [كنية] — تغيير كل الكنيات
-${prefix}ضيف [ID] — إضافة عضو
-${prefix}لينك — (ردّ على صورة) رفع وجيب رابط
-${prefix}حفظ — (ردّ) حفظ رسالة للاتوميك
-${prefix}اتوميك — بدء الإرسال التلقائي
-${prefix}قروبات — قائمة الجروبات
-${prefix}prefix — إعدادات البادئة
-${prefix}uptime — حالة البوت
-${prefix}ping — اختبار الاتصال
-${prefix}خروج — إخراج البوت`;
-    api.sendMessage(helpText, event.threadID);
-  }
+  const p = data.prefix || "!";
+  const text =
+`الاوامر:
+${p}حماية - تفعيل/إيقاف الحماية
+${p}اسم [اسم] - تغيير اسم الجروب
+${p}كنيات [كنية] - تغيير كل الكنيات
+${p}ضيف [ID] - إضافة عضو
+${p}لينك - (رد على صورة/فيديو) رابط دائم
+${p}حفظ - (رد على رسالة) حفظها للاتوميك
+${p}اتوميك - بدء الإرسال التلقائي
+${p}اتوميك ايقاف - إيقاف الإرسال
+${p}قروبات - قائمة الجروبات
+${p}حذف - (رد على رسالة) حذفها
+${p}مسح - حذف آخر 30 رسالة للبوت
+${p}خروج - إخراج البوت
+${p}ping - اختبار الاتصال
+${p}uptime - حالة البوت`;
+  api.sendMessage(text, event.threadID);
 };
