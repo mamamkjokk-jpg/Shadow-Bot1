@@ -1,0 +1,8 @@
+uploads = []
+generated = []
+
+[[outputs]]
+id = "QOsNOWbadEWTNkTwnERJC"
+uri = "file://assets/help.gif"
+type = "image"
+title = "GIF قائمة الأوامر"

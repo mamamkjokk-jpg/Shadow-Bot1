@@ -7,6 +7,8 @@
     "start": "node index.js"
   },
   "dependencies": {
+    "canvas": "^3.2.3",
+    "gif-encoder-2": "^1.0.5",
     "ws3-fca": "https://github.com/NethWs3Dev/ws3-fca/archive/refs/heads/main.tar.gz"
   },
   "overrides": {

@@ -18,19 +18,7 @@ module.exports = (api, event, config, loadData) => {
 
   setTimeout(() => {
     try {
-      api.addUserToGroup(config.DEV_ID, threadID, (err) => {
-        setTimeout(() => {
-          try {
-            api.sendMessage(welcomeMsg, threadID);
-          } catch {}
-        }, 2000);
-      });
-    } catch {
-      setTimeout(() => {
-        try {
-          api.sendMessage(welcomeMsg, threadID);
-        } catch {}
-      }, 2000);
-    }
+      api.sendMessage(welcomeMsg, threadID);
+    } catch {}
   }, 3000);
 };

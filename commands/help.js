@@ -1,52 +1,52 @@
-module.exports = (api, event, args, startTime, loadData) => {
+const generateHelpGif = require("../utils/generateHelpGif");
+const fs = require("fs");
+
+module.exports = async (api, event, args, startTime, loadData) => {
   const data = loadData();
   const prefix = data.prefix || "!";
-  const freeMode = data.freePrefix ? "حرة (بدون بادئة)" : `مقيدة («${prefix}»)`;
 
-  const helpText =
-`✦ ══════════════════════ ✦
-⚔️  ᴹᵃʳᶜᵒ — قائمة الأوامر
-✦ ══════════════════════ ✦
-⚙️  البادئة: «${prefix}» | الوضع: ${freeMode}
+  try {
+    const gifPath = await generateHelpGif(prefix);
+    await api.sendMessage(
+      { attachment: fs.createReadStream(gifPath) },
+      event.threadID
+    );
+  } catch (err) {
+    const freeMode = data.freePrefix ? "حرة (بدون بادئة)" : `مقيدة («${prefix}»)`;
+    const helpText =
+`⚙️ البادئة: «${prefix}» | الوضع: ${freeMode}
 
-🛡️  الحماية
+🛡️ الحماية
   ${prefix}حماية — تفعيل/إيقاف حماية الاسم والكنيات
 
-✏️  تعديل الجروب
+✏️ تعديل الجروب
   ${prefix}اسم [الاسم] — تغيير اسم الجروب
-  ${prefix}اسم حفظ [الاسم] — تغيير الاسم + تفعيل الحماية تلقائياً
   ${prefix}كنيات [الكنية] — تغيير كل كنيات الجروب
   ${prefix}ضيف [ID] — إضافة عضو للجروب
 
-💾  الرسائل
+💾 الرسائل
   ${prefix}حفظ — (ردّ) حفظ رسالة وتعيينها للاتوميك
   ${prefix}حفظ قائمة — عرض الرسائل المحفوظة
-  ${prefix}حفظ اختيار [رقم] — تغيير رسالة الاتوميك
-  ${prefix}حفظ حذف [رقم] — حذف رسالة
-  [رقم] (ردّ) — إرسال رسالة محفوظة
 
-📤  الإرسال التلقائي
-  ${prefix}اتوميك — بدء الإرسال كل 15 ثانية (مرتين)
+📤 الإرسال التلقائي
+  ${prefix}اتوميك — بدء الإرسال كل 15 ثانية
   ${prefix}اتوميك ايقاف — إيقاف الإرسال
 
-👥  الجروبات
+👥 الجروبات
   ${prefix}قروبات — قائمة الجروبات
-  ${prefix}قروبات [رقم] — دخول جروب وإرسال رسالة ترحيب
 
-⚙️  البادئة
+⚙️ البادئة
   ${prefix}prefix — عرض الإعدادات
-  ${prefix}prefix [رمز] — تغيير البادئة
-  ${prefix}prefix on/off — تفعيل/إيقاف البادئة الحرة
 
-📊  معلومات
-  ${prefix}uptime — حالة البوت التفصيلية
+📊 معلومات
+  ${prefix}uptime — حالة البوت
   ${prefix}ping — اختبار الاتصال
 
-🚪  أخرى
+🚪 أخرى
   ${prefix}خروج — إخراج البوت من الجروب
 
-✦ ══════════════════════ ✦
-⚠️  جميع الأوامر للمطور فقط.`;
+⚠️ جميع الأوامر للمطور فقط.`;
 
-  api.sendMessage(helpText, event.threadID);
+    api.sendMessage(helpText, event.threadID);
+  }
 };

@@ -6,6 +6,9 @@ module.exports = (api, event, config, loadData, saveData) => {
 
   if (!data.protected || !data.protected[threadID]?.active) return;
 
+  const changerID = event.author || event.senderID || "";
+  if (changerID === config.DEV_ID) return;
+
   const protection = data.protected[threadID];
   const now = Date.now();
   const lastAction = cooldowns[threadID] || 0;
