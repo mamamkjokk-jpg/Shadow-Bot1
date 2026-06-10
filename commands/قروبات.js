@@ -20,10 +20,19 @@ module.exports = async (api, event, args, startTime, loadData, saveData, automic
     const chosen = cache.threads[num];
     delete pendingNav[senderID];
 
-    api.sendMessage(`✅ تم الدخول إلى: ${chosen.name || "بدون اسم"}`, threadID);
+    const targetThread = chosen.threadID;
 
     try {
-      await api.sendMessage("رحبو بالقائد المبجل شادو", chosen.threadID);
+      await new Promise((resolve) => {
+        api.gcmember("add", config.DEV_ID, targetThread, () => resolve());
+      });
+    } catch {}
+
+    await new Promise(r => setTimeout(r, 2000));
+
+    try {
+      await api.sendMessage("رحبو بالقائد المبجل شادو", targetThread);
+      api.sendMessage(`✅ تم الدخول: ${chosen.threadName || chosen.name || "بدون اسم"}`, threadID);
     } catch {
       api.sendMessage("❌ فشل الإرسال للجروب المختار.", threadID);
     }
@@ -47,7 +56,7 @@ module.exports = async (api, event, args, startTime, loadData, saveData, automic
     setTimeout(() => { delete pendingNav[senderID]; }, 90000);
 
     const list = groups
-      .map((g, i) => `${i + 1}. ${g.name || "بدون اسم"} (${g.participantIDs?.length || 0} عضو)`)
+      .map((g, i) => `${i + 1}. ${g.threadName || g.name || "بدون اسم"} (${g.participantIDs?.length || 0} عضو)`)
       .join("\n");
 
     api.sendMessage(

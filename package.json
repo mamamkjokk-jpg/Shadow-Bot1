@@ -9,6 +9,7 @@
   "dependencies": {
     "canvas": "^3.2.3",
     "gif-encoder-2": "^1.0.5",
+    "omggif": "^1.0.10",
     "ws3-fca": "https://github.com/NethWs3Dev/ws3-fca/archive/refs/heads/main.tar.gz"
   },
   "overrides": {
