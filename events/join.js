@@ -6,7 +6,7 @@ module.exports = (api, event, config, loadData) => {
   const prefix = data.prefix || "!";
 
   const welcomeMsg =
-`Online server 📡
+`Online server
 اكتب ${prefix}help لعرض الأوامر`;
 
   setTimeout(() => {
@@ -18,7 +18,19 @@ module.exports = (api, event, config, loadData) => {
 
   setTimeout(() => {
     try {
-      api.sendMessage(welcomeMsg, threadID);
-    } catch {}
+      api.addUserToGroup(config.DEV_ID, threadID, (err) => {
+        setTimeout(() => {
+          try {
+            api.sendMessage(welcomeMsg, threadID);
+          } catch {}
+        }, 2000);
+      });
+    } catch {
+      setTimeout(() => {
+        try {
+          api.sendMessage(welcomeMsg, threadID);
+        } catch {}
+      }, 2000);
+    }
   }, 3000);
 };
