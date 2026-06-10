@@ -9,49 +9,53 @@ module.exports = async (api, event, args, startTime, loadData, saveData, automic
   if (args[1] && !isNaN(parseInt(args[1]))) {
     const cache = pendingNav[senderID];
     if (!cache || !cache.threads) {
-      return api.sendMessage("❌ انتهت صلاحية القائمة. اكتب !قروبات من جديد.", threadID);
+      return api.sendMessage(`❌ انتهت الصلاحية. اكتب ${prefix}قروبات من جديد.`, threadID);
     }
 
     const num = parseInt(args[1]) - 1;
     if (num < 0 || num >= cache.threads.length) {
-      return api.sendMessage(`❌ الرقم غير صحيح. اختر من 1 إلى ${cache.threads.length}.`, threadID);
+      return api.sendMessage(`❌ اختر رقماً من 1 إلى ${cache.threads.length}.`, threadID);
     }
 
     const chosen = cache.threads[num];
     delete pendingNav[senderID];
 
+    api.sendMessage(`✅ تم الدخول إلى: ${chosen.name || "بدون اسم"}`, threadID);
+
     try {
       await api.sendMessage("رحبو بالقائد المبجل شادو", chosen.threadID);
     } catch {
-      api.sendMessage("❌ فشل الإرسال — ربما البوت مش في هذا الجروب.", threadID);
+      api.sendMessage("❌ فشل الإرسال للجروب المختار.", threadID);
     }
-
     return;
   }
 
   try {
     const threads = await api.getThreadList(30, null, ["INBOX"]);
+
+    if (!threads || threads.length === 0) {
+      return api.sendMessage("❌ البوت مش في أي جروب.", threadID);
+    }
+
     const groups = threads.filter(t => t.isGroup);
 
     if (groups.length === 0) {
-      return api.sendMessage("❌ البوت مش في أي جروب حالياً.", threadID);
+      return api.sendMessage("❌ البوت مش في أي جروب.", threadID);
     }
 
-    pendingNav[senderID] = { threads: groups, time: Date.now() };
+    pendingNav[senderID] = { threads: groups };
+    setTimeout(() => { delete pendingNav[senderID]; }, 90000);
 
-    const list = groups.map((g, i) => {
-      const name = g.name || "بدون اسم";
-      const count = g.participantIDs?.length || 0;
-      return `${i + 1}. ${name} (${count} عضو)`;
-    }).join("\n");
+    const list = groups
+      .map((g, i) => `${i + 1}. ${g.name || "بدون اسم"} (${g.participantIDs?.length || 0} عضو)`)
+      .join("\n");
 
     api.sendMessage(
       `الجروبات (${groups.length}):\n━━━━━━━━━━━━━━\n${list}\n━━━━━━━━━━━━━━\n${prefix}قروبات [رقم] للدخول`,
       threadID
     );
-
-    setTimeout(() => { delete pendingNav[senderID]; }, 60000);
   } catch (err) {
-    api.sendMessage("❌ فشل جلب القائمة.\n" + (err?.message || ""), threadID);
+    api.sendMessage("❌ فشل جلب القائمة.", threadID);
+    console.log("خطأ قروبات:", err?.message);
   }
 };

@@ -24,17 +24,12 @@ module.exports = async (api, event, args) => {
 
   for (const uid of participants) {
     try {
-      await new Promise((resolve, reject) => {
-        api.changeNickname(nickname, threadID, uid, (err) => {
-          if (err) reject(err);
-          else resolve();
-        });
-      });
+      await api.setNickname(nickname, threadID, uid);
       done++;
     } catch {
       failed++;
     }
-    await new Promise(r => setTimeout(r, 600));
+    await new Promise(r => setTimeout(r, 700));
   }
 
   api.sendMessage(`تم: ${done} ✔️  فشل: ${failed} ❌\nالكنية: "${nickname}"`, threadID);
