@@ -6,8 +6,11 @@ module.exports = (api, event, config, loadData, saveData) => {
 
   if (!data.protected || !data.protected[threadID]?.active) return;
 
-  const changerID = event.author || event.senderID || "";
-  if (changerID === config.DEV_ID) return;
+  const changerID = String(event.author || event.senderID || "");
+  const botID = String(api.getCurrentUserID());
+  const devID = String(config.DEV_ID);
+
+  if (changerID === devID || changerID === botID) return;
 
   const protection = data.protected[threadID];
   const now = Date.now();

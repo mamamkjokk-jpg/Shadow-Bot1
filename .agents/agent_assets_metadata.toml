@@ -6,3 +6,9 @@ id = "QOsNOWbadEWTNkTwnERJC"
 uri = "file://assets/help.gif"
 type = "image"
 title = "GIF قائمة الأوامر"
+
+[[outputs]]
+id = "pyGQEpAp9573x0IXCU7VH"
+uri = "file://assets/marco.gif"
+type = "image"
+title = "GIF ماركو — Star vs. The Forces of Evil"

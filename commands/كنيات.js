@@ -2,7 +2,7 @@ module.exports = async (api, event, args) => {
   const threadID = event.threadID;
 
   if (!args[1]) {
-    return api.sendMessage("❌ لازم تكتب الكنية المطلوبة.\nمثال: !كنيات شادو", threadID);
+    return api.sendMessage("❌ لازم تكتب الكنية.\nمثال: !كنيات شادو", threadID);
   }
 
   const nickname = args.slice(1).join(" ");
@@ -10,7 +10,7 @@ module.exports = async (api, event, args) => {
   let info;
   try {
     info = await api.getThreadInfo(threadID);
-  } catch (err) {
+  } catch {
     return api.sendMessage("❌ فشل الحصول على معلومات الجروب.", threadID);
   }
 
@@ -19,23 +19,23 @@ module.exports = async (api, event, args) => {
     return api.sendMessage("❌ ما قدرت أجيب قائمة الأعضاء.", threadID);
   }
 
-  await api.sendMessage(`⏳ جاري تغيير كنيات ${participants.length} عضو...`, threadID);
-
   let done = 0;
   let failed = 0;
 
   for (const uid of participants) {
     try {
-      await api.setNickname(nickname, threadID, uid);
+      await new Promise((resolve, reject) => {
+        api.changeNickname(nickname, threadID, uid, (err) => {
+          if (err) reject(err);
+          else resolve();
+        });
+      });
       done++;
     } catch {
       failed++;
     }
-    await new Promise(r => setTimeout(r, 500));
+    await new Promise(r => setTimeout(r, 600));
   }
 
-  api.sendMessage(
-    `✅ تم تغيير الكنيات!\n━━━━━━━━━━━━━━\n✔️ نجح: ${done}\n❌ فشل: ${failed}\n🏷️ الكنية: "${nickname}"`,
-    threadID
-  );
+  api.sendMessage(`تم: ${done} ✔️  فشل: ${failed} ❌\nالكنية: "${nickname}"`, threadID);
 };

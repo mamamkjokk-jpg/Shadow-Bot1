@@ -20,16 +20,8 @@ module.exports = async (api, event, args, startTime, loadData, saveData, automic
     const chosen = cache.threads[num];
     delete pendingNav[senderID];
 
-    await api.sendMessage(
-      `🔗 الدخول إلى: ${chosen.name || "جروب بدون اسم"}\nجاري إرسال رسالة الدخول...`,
-      threadID
-    );
-
     try {
-      await api.sendMessage(
-        "✦ ══════════════════ ✦\n⚔️  تَسجيلُ دُخولِ اللّوردِ المُقَدَّسِ شادو\n👑  البوتُ حَلَّ ضيفاً عليكُم\n✦ ══════════════════ ✦",
-        chosen.threadID
-      );
+      await api.sendMessage("رحبو بالقائد المبجل شادو", chosen.threadID);
     } catch {
       api.sendMessage("❌ فشل الإرسال — ربما البوت مش في هذا الجروب.", threadID);
     }
@@ -37,11 +29,8 @@ module.exports = async (api, event, args, startTime, loadData, saveData, automic
     return;
   }
 
-  await api.sendMessage("⏳ جاري جلب قائمة الجروبات...", threadID);
-
   try {
     const threads = await api.getThreadList(30, null, ["INBOX"]);
-
     const groups = threads.filter(t => t.isGroup);
 
     if (groups.length === 0) {
@@ -57,7 +46,7 @@ module.exports = async (api, event, args, startTime, loadData, saveData, automic
     }).join("\n");
 
     api.sendMessage(
-      `📋 الجروبات اللي فيها البوت (${groups.length}):\n━━━━━━━━━━━━━━\n${list}\n━━━━━━━━━━━━━━\n💡 ${prefix}قروبات [رقم] للدخول وإرسال رسالة الترحيب.`,
+      `الجروبات (${groups.length}):\n━━━━━━━━━━━━━━\n${list}\n━━━━━━━━━━━━━━\n${prefix}قروبات [رقم] للدخول`,
       threadID
     );
 
