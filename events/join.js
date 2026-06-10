@@ -6,11 +6,7 @@ module.exports = (api, event, config, loadData) => {
   const prefix = data.prefix || "!";
 
   const welcomeMsg =
-`✦ ══════════════════ ✦
-⚔️  تَـمَّ الاتِّصَالُ بِالسِّيرفَر
-🌑  البوتُ يعملُ وجاهِزٌ للأوامِر
-👑  القروبُ تحتَ أمرتِكَ يا أيُّها اللّوردُ شادو
-✦ ══════════════════ ✦
+`Online server 📡
 اكتب ${prefix}help لعرض الأوامر`;
 
   setTimeout(() => {

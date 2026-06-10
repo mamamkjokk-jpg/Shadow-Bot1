@@ -12,7 +12,7 @@ process.on("unhandledRejection", (reason) => {
 
 const config = {
   BOT_NAME: "ᴹᵃʳᶜᵒ",
-  DEV_ID: "61590646773031"
+  DEV_ID: "61589645620146"
 };
 
 const appState = JSON.parse(fs.readFileSync("appState.json", "utf8"));
