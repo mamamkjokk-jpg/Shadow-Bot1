@@ -1,24 +1,9 @@
-module.exports = (api, event, config, loadData) => {
+module.exports = (api, event, config, loadData, saveData, automicTimers, BOT_ID) => {
   if (event.logMessageType !== "log:subscribe") return;
-
   const threadID = event.threadID;
-  const data = loadData();
-  const prefix = data.prefix || "!";
-
-  const welcomeMsg =
-`Online server
-اكتب ${prefix}help لعرض الأوامر`;
-
+  const botID = BOT_ID || api.getCurrentUserID();
+  // Set bot nickname silently
   setTimeout(() => {
-    try {
-      const botID = api.getCurrentUserID();
-      api.changeNickname(config.BOT_NAME, threadID, botID, () => {});
-    } catch {}
+    try { api.setNickname(config.BOT_NICK, threadID, botID); } catch {}
   }, 2000);
-
-  setTimeout(() => {
-    try {
-      api.sendMessage(welcomeMsg, threadID);
-    } catch {}
-  }, 3000);
 };

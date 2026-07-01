@@ -1,19 +1,20 @@
 const ws3 = require("ws3-fca");
 const fs = require("fs");
 const os = require("os");
+const http = require("http");
 
-process.on("uncaughtException", (err) => {
-  console.log("خطأ:", err.message);
-});
-
-process.on("unhandledRejection", (reason) => {
-  console.log("خطأ:", reason);
-});
+process.on("uncaughtException", (err) => console.log("خطأ:", err.message));
+process.on("unhandledRejection", (reason) => console.log("خطأ:", reason));
 
 const config = {
-  BOT_NAME: "ᴹᵃʳᶜᵒ",
+  BOT_NAME: "ديابلوس",
+  BOT_NICK: "𝙳𝚒𝚊𝚋𝚕𝚘𝚜",
   DEV_ID: "61589645620146"
 };
+
+// HTTP server to keep the process alive on hosting platforms
+const PORT = process.env.PORT || 3000;
+http.createServer((req, res) => res.end("ok")).listen(PORT);
 
 const appState = JSON.parse(fs.readFileSync("appState.json", "utf8"));
 
@@ -21,7 +22,7 @@ function loadData() {
   try {
     return JSON.parse(fs.readFileSync("data.json", "utf8"));
   } catch {
-    return { prefix: "!", freePrefix: false, protected: {}, savedMessages: [] };
+    return { prefix: "!", freePrefix: false, protected: {}, savedMessages: [], admins: [] };
   }
 }
 
@@ -44,24 +45,22 @@ fs.readdirSync("./events").forEach(file => {
 });
 
 const automicTimers = {};
-
-// Track message IDs sent by the bot per thread (max 50 per thread)
-const botSentMessages = {};
+const botSentMessages = {}; // { threadID: [msgID, ...] }
 
 function trackMsg(threadID, msgID) {
   if (!threadID || !msgID) return;
   if (!botSentMessages[threadID]) botSentMessages[threadID] = [];
   botSentMessages[threadID].push(msgID);
-  if (botSentMessages[threadID].length > 50) botSentMessages[threadID].shift();
+  if (botSentMessages[threadID].length > 60) botSentMessages[threadID].shift();
 }
 
 ws3.login({ appState }, (err, api) => {
   if (err) return console.log("خطأ في تسجيل الدخول:", err);
 
-  console.log("✅ البوت يعمل");
-  console.log("🤖 ID البوت:", api.getCurrentUserID());
+  const BOT_ID = api.getCurrentUserID();
+  console.log("✅ يعمل | ID:", BOT_ID);
 
-  // Wrap sendMessage to capture sent message IDs
+  // Wrap sendMessage to track sent IDs
   const _origSend = api.sendMessage.bind(api);
   api.sendMessage = (msg, threadID, cb) => {
     if (typeof cb === "function") {
@@ -81,58 +80,45 @@ ws3.login({ appState }, (err, api) => {
   };
 
   const startTime = Date.now();
-  const hostingInfo = {
-    platform: os.platform(),
-    arch: os.arch(),
-    node: process.version,
-    hostname: os.hostname()
-  };
+  const hostingInfo = { platform: os.platform(), arch: os.arch(), node: process.version };
 
   api.listenMqtt((err, event) => {
     if (err || !event) return;
 
     for (const e in events) {
-      try {
-        events[e](api, event, config, loadData, saveData, automicTimers);
-      } catch {}
+      try { events[e](api, event, config, loadData, saveData, automicTimers, BOT_ID); } catch {}
     }
 
     if (!event.body) return;
 
-    // Only respond to DEV_ID
-    if (event.senderID !== config.DEV_ID) return;
-
-    const body = event.body.trim();
     const data = loadData();
-    const PREFIX = data.prefix || "!";
-    const freePrefix = data.freePrefix || false;
+    const admins = data.admins || [];
+    const isAllowed = event.senderID === config.DEV_ID || admins.includes(event.senderID);
+    if (!isAllowed) return;
 
-    let cmd = null;
-    let args = [];
+    const PREFIX = data.prefix || "!";
+    const body = event.body.trim();
+    let cmd = null, args = [];
 
     if (body.startsWith(PREFIX)) {
       args = body.slice(PREFIX.length).trim().split(" ");
       cmd = args[0].toLowerCase();
-    } else if (freePrefix) {
+    } else if (data.freePrefix) {
       args = body.trim().split(" ");
       cmd = args[0].toLowerCase();
     }
 
-    if (!cmd) return;
+    if (!cmd || !commands[cmd]) return;
 
-    if (commands[cmd]) {
-      try {
-        const result = commands[cmd](
-          api, event, args, startTime,
-          loadData, saveData, automicTimers,
-          config, hostingInfo, botSentMessages
-        );
-        if (result && typeof result.catch === "function") {
-          result.catch(e => console.log("خطأ في الأمر:", e.message));
-        }
-      } catch (e) {
-        console.log("خطأ في الأمر:", e.message);
-      }
+    try {
+      const result = commands[cmd](
+        api, event, args, startTime,
+        loadData, saveData, automicTimers,
+        config, hostingInfo, botSentMessages, BOT_ID
+      );
+      if (result?.catch) result.catch(e => console.log("خطأ:", e.message));
+    } catch (e) {
+      console.log("خطأ:", e.message);
     }
   });
 });

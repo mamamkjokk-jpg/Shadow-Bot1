@@ -1,4 +1,4 @@
 module.exports = (api, event) => {
-  const start = Date.now();
-  api.sendMessage("🏓 Pong! ⚡ " + (Date.now() - start) + "ms", event.threadID);
+  const t = Date.now();
+  api.sendMessage("pong " + (Date.now() - t) + "ms", event.threadID);
 };
