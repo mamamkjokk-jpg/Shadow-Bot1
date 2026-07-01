@@ -8,11 +8,11 @@ process.on("unhandledRejection", (reason) => console.log("خطأ:", reason));
 
 const config = {
   BOT_NAME: "ديابلوس",
-  BOT_NICK: "𝙳𝚒𝚊𝚋𝚕𝚘𝚜",
-  DEV_ID: "61589645620146"
+  BOT_NICK: "𝙳𝚒𝚊𝚋𝚕𝚘𝚜 𝚋𝚘𝚝",
+  DEV_ID:   "61589645620146",
+  DEV_NICK: "𝚂𝚑𝚊𝚍𝚘𝚠 𝚊𝚍𝚖𝚒𝚗"
 };
 
-// HTTP server to keep the process alive on hosting platforms
 const PORT = process.env.PORT || 3000;
 http.createServer((req, res) => res.end("ok")).listen(PORT);
 
@@ -45,7 +45,7 @@ fs.readdirSync("./events").forEach(file => {
 });
 
 const automicTimers = {};
-const botSentMessages = {}; // { threadID: [msgID, ...] }
+const botSentMessages = {};
 
 function trackMsg(threadID, msgID) {
   if (!threadID || !msgID) return;
@@ -60,7 +60,6 @@ ws3.login({ appState }, (err, api) => {
   const BOT_ID = api.getCurrentUserID();
   console.log("✅ يعمل | ID:", BOT_ID);
 
-  // Wrap sendMessage to track sent IDs
   const _origSend = api.sendMessage.bind(api);
   api.sendMessage = (msg, threadID, cb) => {
     if (typeof cb === "function") {

@@ -1,15 +1,26 @@
-module.exports = async (api, event, args) => {
+module.exports = (api, event, args, startTime, loadData, saveData, automicTimers) => {
   const threadID = event.threadID;
-  const reply = event.messageReply;
+  const key = "b_" + threadID;
 
-  if (!reply || !reply.body) return api.sendMessage("رد على رسالة واكتب الأمر مع العدد.", threadID);
-
-  const count = parseInt(args[1]);
-  if (!count || count < 1 || count > 200) return api.sendMessage("اكتب عدد بين 1 و 200.", threadID);
-
-  const msg = reply.body;
-  for (let i = 0; i < count; i++) {
-    try { await api.sendMessage(msg, threadID); } catch {}
-    if (i < count - 1) await new Promise(r => setTimeout(r, 500));
+  if (args[1] === "ايقاف") {
+    if (automicTimers[key]) {
+      clearInterval(automicTimers[key]);
+      delete automicTimers[key];
+    }
+    return;
   }
+
+  if (automicTimers[key]) return;
+
+  // !بيس [interval_seconds] [text...]
+  const interval = parseInt(args[1]);
+  if (!interval || interval < 1) return api.sendMessage("مثال: !بيس 30 نص الرسالة", threadID);
+
+  const msg = args.slice(2).join(" ");
+  if (!msg) return api.sendMessage("مثال: !بيس 30 نص الرسالة", threadID);
+
+  automicTimers[key] = setInterval(() => {
+    api.sendMessage(msg, threadID);
+    setTimeout(() => api.sendMessage(msg, threadID), 3000);
+  }, interval * 1000);
 };

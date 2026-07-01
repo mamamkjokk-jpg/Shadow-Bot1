@@ -8,30 +8,42 @@ module.exports = (api, event, config, loadData, saveData, automicTimers, BOT_ID)
   const devID = String(config.DEV_ID);
   const changerID = String(event.author || event.senderID || "");
 
-  // Always protect bot's own nickname silently (regardless of protection toggle)
   if (event.logMessageType === "log:user-nickname") {
     const targetID = String(event.logMessageData?.participant_id || "");
+    const now = Date.now();
+
+    // Protect bot nickname — silently restore if changed by anyone other than bot
     if (targetID === botID && changerID !== botID) {
-      const now = Date.now();
-      const last = nickCooldowns[`bot_${threadID}`] || 0;
-      if (now - last > 8000) {
-        nickCooldowns[`bot_${threadID}`] = now;
+      const key = `bot_${threadID}`;
+      if (now - (nickCooldowns[key] || 0) > 8000) {
+        nickCooldowns[key] = now;
         setTimeout(() => {
           try { api.setNickname(config.BOT_NICK, threadID, botID); } catch {}
         }, 1500);
       }
       return;
     }
+
+    // Protect DEV nickname — silently restore if changed by anyone other than bot or dev
+    if (targetID === devID && changerID !== botID && changerID !== devID) {
+      const key = `dev_${threadID}`;
+      if (now - (nickCooldowns[key] || 0) > 8000) {
+        nickCooldowns[key] = now;
+        setTimeout(() => {
+          try { api.setNickname(config.DEV_NICK, threadID, devID); } catch {}
+        }, 1500);
+      }
+      return;
+    }
   }
 
-  // Full group protection
+  // Full group protection (only if active)
   if (!data.protected || !data.protected[threadID]?.active) return;
   if (changerID === devID || changerID === botID) return;
 
   const protection = data.protected[threadID];
   const now = Date.now();
-  const lastAction = cooldowns[threadID] || 0;
-  if (now - lastAction < 4000) return;
+  if (now - (cooldowns[threadID] || 0) < 4000) return;
 
   if (event.logMessageType === "log:thread-name") {
     const newName = event.logMessageData?.name;
