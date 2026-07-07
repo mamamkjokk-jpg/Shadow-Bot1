@@ -1,4 +1,4 @@
-module.exports = (api, event, config, loadData, saveData, automicTimers, BOT_ID) => {
+module.exports = (api, event, config, loadData, saveData, automicTimers, BOT_ID, startTime) => {
   if (event.logMessageType !== "log:subscribe") return;
 
   const threadID = event.threadID;
@@ -6,22 +6,40 @@ module.exports = (api, event, config, loadData, saveData, automicTimers, BOT_ID)
   const added = event.logMessageData?.addedParticipants || [];
   const botJoined = added.some(p => String(p.userFbId || p.id || "") === botID);
 
-  // Set bot nickname when bot joins, or always update on any subscribe event
+  if (!botJoined) return;
+
+  // Set bot and dev nicknames
   setTimeout(() => {
     try { api.setNickname(config.BOT_NICK, threadID, botID); } catch {}
   }, 2000);
 
-  // Set DEV nickname
   setTimeout(async () => {
     try {
       const info = await api.getThreadInfo(threadID);
-      const ids = info.participantIDs || [];
-      if (ids.map(String).includes(String(config.DEV_ID))) {
-        const currentNick = info.nicknames?.[config.DEV_ID] ?? "";
-        if (currentNick !== config.DEV_NICK) {
-          api.setNickname(config.DEV_NICK, threadID, config.DEV_ID);
-        }
+      if ((info.participantIDs || []).map(String).includes(String(config.DEV_ID))) {
+        api.setNickname(config.DEV_NICK, threadID, config.DEV_ID);
       }
     } catch {}
-  }, 3000);
+  }, 2500);
+
+  // Send welcome message after nicknames are set
+  setTimeout(() => {
+    try {
+      const data = loadData();
+      const prefix = data.prefix || "!";
+      const diff = Date.now() - (startTime || Date.now());
+      const s = Math.floor(diff / 1000) % 60;
+      const m = Math.floor(diff / 60000) % 60;
+      const h = Math.floor(diff / 3600000);
+      const uptime = `${h > 0 ? h + "s " : ""}${m > 0 ? m + "m " : ""}${s}s`;
+
+      const msg =
+`${config.BOT_NAME}
+dev: ${config.DEV_NAME}
+prefix: ${prefix}
+uptime: ${uptime}`;
+
+      api.sendMessage(msg, threadID);
+    } catch {}
+  }, 4000);
 };

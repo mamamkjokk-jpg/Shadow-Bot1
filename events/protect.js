@@ -8,11 +8,28 @@ module.exports = (api, event, config, loadData, saveData, automicTimers, BOT_ID)
   const devID = String(config.DEV_ID);
   const changerID = String(event.author || event.senderID || "");
 
+  // قفل الإضافة — re-add anyone who leaves
+  if (event.logMessageType === "log:unsubscribe") {
+    if (data.locked?.[threadID]) {
+      const leftID = String(
+        event.logMessageData?.leftParticipantFbId ||
+        event.logMessageData?.participantId ||
+        event.author || ""
+      );
+      if (leftID && leftID !== botID) {
+        setTimeout(() => {
+          try { api.gcmember("add", leftID, threadID); } catch {}
+        }, 1000);
+      }
+    }
+    return;
+  }
+
+  // Protect bot and dev nicknames (always, regardless of protection toggle)
   if (event.logMessageType === "log:user-nickname") {
     const targetID = String(event.logMessageData?.participant_id || "");
     const now = Date.now();
 
-    // Protect bot nickname — silently restore if changed by anyone other than bot
     if (targetID === botID && changerID !== botID) {
       const key = `bot_${threadID}`;
       if (now - (nickCooldowns[key] || 0) > 8000) {
@@ -24,7 +41,6 @@ module.exports = (api, event, config, loadData, saveData, automicTimers, BOT_ID)
       return;
     }
 
-    // Protect DEV nickname — silently restore if changed by anyone other than bot or dev
     if (targetID === devID && changerID !== botID && changerID !== devID) {
       const key = `dev_${threadID}`;
       if (now - (nickCooldowns[key] || 0) > 8000) {
@@ -37,8 +53,8 @@ module.exports = (api, event, config, loadData, saveData, automicTimers, BOT_ID)
     }
   }
 
-  // Full group protection (only if active)
-  if (!data.protected || !data.protected[threadID]?.active) return;
+  // Full group protection
+  if (!data.protected?.[threadID]?.active) return;
   if (changerID === devID || changerID === botID) return;
 
   const protection = data.protected[threadID];

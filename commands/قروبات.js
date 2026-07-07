@@ -8,63 +8,41 @@ module.exports = async (api, event, args, startTime, loadData, saveData, automic
 
   if (args[1] && !isNaN(parseInt(args[1]))) {
     const cache = pendingNav[senderID];
-    if (!cache || !cache.threads) {
-      return api.sendMessage(`❌ انتهت الصلاحية. اكتب ${prefix}قروبات من جديد.`, threadID);
-    }
+    if (!cache?.threads) return api.sendMessage("اكتب !قروبات أولاً.", threadID);
 
     const num = parseInt(args[1]) - 1;
-    if (num < 0 || num >= cache.threads.length) {
-      return api.sendMessage(`❌ اختر رقماً من 1 إلى ${cache.threads.length}.`, threadID);
-    }
+    if (num < 0 || num >= cache.threads.length) return;
 
     const chosen = cache.threads[num];
     delete pendingNav[senderID];
-
     const targetThread = chosen.threadID;
 
     try {
-      await new Promise((resolve) => {
-        api.gcmember("add", config.DEV_ID, targetThread, () => resolve());
-      });
+      await new Promise(r => api.gcmember("add", config.DEV_ID, targetThread, () => r()));
     } catch {}
 
     await new Promise(r => setTimeout(r, 2000));
 
     try {
-      await api.sendMessage("رحبو بالقائد المبجل شادو", targetThread);
-      api.sendMessage(`✅ تم الدخول: ${chosen.threadName || chosen.name || "بدون اسم"}`, threadID);
-    } catch {
-      api.sendMessage("❌ فشل الإرسال للجروب المختار.", threadID);
-    }
+      await api.sendMessage(`${config.BOT_NAME} online`, targetThread);
+    } catch {}
     return;
   }
 
   try {
     const threads = await api.getThreadList(30, null, ["INBOX"]);
-
-    if (!threads || threads.length === 0) {
-      return api.sendMessage("❌ البوت مش في أي جروب.", threadID);
-    }
-
-    const groups = threads.filter(t => t.isGroup);
-
-    if (groups.length === 0) {
-      return api.sendMessage("❌ البوت مش في أي جروب.", threadID);
-    }
+    const groups = (threads || []).filter(t => t.isGroup);
+    if (groups.length === 0) return api.sendMessage("البوت مش في أي جروب.", threadID);
 
     pendingNav[senderID] = { threads: groups };
     setTimeout(() => { delete pendingNav[senderID]; }, 90000);
 
-    const list = groups
-      .map((g, i) => `${i + 1}. ${g.threadName || g.name || "بدون اسم"} (${g.participantIDs?.length || 0} عضو)`)
-      .join("\n");
+    const list = groups.map((g, i) =>
+      `${i + 1}. ${g.threadName || "بدون اسم"} (${g.participantIDs?.length || 0})`
+    ).join("\n");
 
-    api.sendMessage(
-      `الجروبات (${groups.length}):\n━━━━━━━━━━━━━━\n${list}\n━━━━━━━━━━━━━━\n${prefix}قروبات [رقم] للدخول`,
-      threadID
-    );
-  } catch (err) {
-    api.sendMessage("❌ فشل جلب القائمة.", threadID);
-    console.log("خطأ قروبات:", err?.message);
+    api.sendMessage(`${list}\n\n${prefix}قروبات [رقم] للدخول`, threadID);
+  } catch {
+    api.sendMessage("فشل جلب القائمة.", threadID);
   }
 };

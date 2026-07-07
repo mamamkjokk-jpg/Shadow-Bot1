@@ -9,8 +9,9 @@ process.on("unhandledRejection", (reason) => console.log("خطأ:", reason));
 const config = {
   BOT_NAME: "ديابلوس",
   BOT_NICK: "𝙳𝚒𝚊𝚋𝚕𝚘𝚜 𝚋𝚘𝚝",
-  DEV_ID:   "61589645620146",
-  DEV_NICK: "𝚂𝚑𝚊𝚍𝚘𝚠 𝚊𝚍𝚖𝚒𝚗"
+  DEV_ID:   "61591731953893",
+  DEV_NICK: "𝚂𝚑𝚊𝚍𝚘𝚠 𝚊𝚍𝚖𝚒𝚗",
+  DEV_NAME: "Shadow"
 };
 
 const PORT = process.env.PORT || 3000;
@@ -22,7 +23,7 @@ function loadData() {
   try {
     return JSON.parse(fs.readFileSync("data.json", "utf8"));
   } catch {
-    return { prefix: "!", freePrefix: false, protected: {}, savedMessages: [], admins: [] };
+    return { prefix: "!", freePrefix: false, protected: {}, savedMessages: [], admins: [], locked: {} };
   }
 }
 
@@ -46,6 +47,7 @@ fs.readdirSync("./events").forEach(file => {
 
 const automicTimers = {};
 const botSentMessages = {};
+const startTime = Date.now();
 
 function trackMsg(threadID, msgID) {
   if (!threadID || !msgID) return;
@@ -78,14 +80,13 @@ ws3.login({ appState }, (err, api) => {
     return p;
   };
 
-  const startTime = Date.now();
   const hostingInfo = { platform: os.platform(), arch: os.arch(), node: process.version };
 
   api.listenMqtt((err, event) => {
     if (err || !event) return;
 
     for (const e in events) {
-      try { events[e](api, event, config, loadData, saveData, automicTimers, BOT_ID); } catch {}
+      try { events[e](api, event, config, loadData, saveData, automicTimers, BOT_ID, startTime); } catch {}
     }
 
     if (!event.body) return;

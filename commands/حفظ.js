@@ -1,95 +1,45 @@
-module.exports = (api, event, args, startTime, loadData, saveData, automicTimers, config) => {
+module.exports = (api, event, args, startTime, loadData, saveData) => {
   const threadID = event.threadID;
   const data = loadData();
-  const prefix = data.prefix || "!";
+  if (!data.savedMessages) data.savedMessages = [];
 
   if (args[1] === "حذف") {
     const num = parseInt(args[2], 10);
-    const msgs = data.savedMessages || [];
-    if (!num || num < 1 || num > msgs.length) {
-      return api.sendMessage(
-        `❌ رقم غير صحيح.\nاستخدم: ${prefix}حفظ حذف [رقم]\nالرسائل المتاحة: 1 - ${msgs.length}`,
-        threadID
-      );
-    }
-    const removed = msgs.splice(num - 1, 1)[0];
-    if (data.selectedMessage === removed) data.selectedMessage = msgs[0] || null;
-    data.savedMessages = msgs;
+    if (!num || num < 1 || num > data.savedMessages.length) return;
+    const removed = data.savedMessages.splice(num - 1, 1)[0];
+    if (data.selectedMessage === removed) data.selectedMessage = data.savedMessages[0] || null;
     saveData(data);
-    const preview = removed.length > 40 ? removed.slice(0, 40) + "..." : removed;
-    return api.sendMessage(`🗑️ تم حذف الرسالة رقم ${num}:\n"${preview}"`, threadID);
-  }
-
-  if (args[1] === "قائمة") {
-    const msgs = data.savedMessages || [];
-    if (msgs.length === 0) {
-      return api.sendMessage("📋 القائمة فارغة.\nردّ على رسالة واكتب !حفظ لإضافتها.", threadID);
-    }
-    const selected = data.selectedMessage;
-    const listText = msgs.map((m, i) => {
-      const preview = m.length > 50 ? m.slice(0, 50) + "..." : m;
-      return `${i + 1}. ${preview}${m === selected ? " ◄ مختارة" : ""}`;
-    }).join("\n");
-    return api.sendMessage(`📋 الرسائل المحفوظة (${msgs.length}):\n━━━━━━━━━━━━━━\n${listText}\n━━━━━━━━━━━━━━\nردّ بالرقم لإرسال | ${prefix}حفظ اختيار [رقم] لتحديد رسالة الاتوميك.`, threadID);
+    return;
   }
 
   if (args[1] === "اختيار") {
     const num = parseInt(args[2], 10);
-    const msgs = data.savedMessages || [];
-    if (!num || num < 1 || num > msgs.length) {
-      return api.sendMessage(
-        `❌ رقم غير صحيح. الرسائل المتاحة: 1 - ${msgs.length}`,
-        threadID
-      );
-    }
-    data.selectedMessage = msgs[num - 1];
+    if (!num || num < 1 || num > data.savedMessages.length) return;
+    data.selectedMessage = data.savedMessages[num - 1];
     saveData(data);
-    const preview = msgs[num - 1].length > 50 ? msgs[num - 1].slice(0, 50) + "..." : msgs[num - 1];
-    return api.sendMessage(`✅ تم اختيار الرسالة رقم ${num} للإرسال التلقائي:\n"${preview}"`, threadID);
+    return api.sendMessage(`الرسالة ${num} محددة للاتوميك.`, threadID);
   }
 
   if (!event.messageReply) {
-    const msgs = data.savedMessages || [];
+    const msgs = data.savedMessages;
+    if (msgs.length === 0) return api.sendMessage("لا توجد رسائل محفوظة.", threadID);
     const selected = data.selectedMessage;
-    const listText = msgs.length === 0
-      ? "لا توجد رسائل بعد."
-      : msgs.map((m, i) => {
-          const preview = m.length > 50 ? m.slice(0, 50) + "..." : m;
-          return `${i + 1}. ${preview}${m === selected ? " ◄ مختارة" : ""}`;
-        }).join("\n");
-
-    return api.sendMessage(
-      `📋 الرسائل المحفوظة (${msgs.length}):\n━━━━━━━━━━━━━━\n${listText}\n━━━━━━━━━━━━━━\n• ردّ على رسالة + ${prefix}حفظ ← لحفظها وتعيينها للاتوميك\n• ${prefix}حفظ اختيار [رقم] ← تغيير رسالة الاتوميك\n• ${prefix}حفظ حذف [رقم] ← حذف رسالة`,
-      threadID
-    );
+    const list = msgs.map((m, i) => `${i + 1}. ${m.slice(0, 50)}${m === selected ? " ◄" : ""}`).join("\n");
+    return api.sendMessage(list, threadID);
   }
 
-  const messageToSave = event.messageReply.body;
-  if (!messageToSave || messageToSave.trim() === "") {
-    return api.sendMessage("❌ لا يمكن حفظ رسالة فارغة.", threadID);
-  }
+  const body = event.messageReply.body;
+  if (!body?.trim()) return;
 
-  if (!data.savedMessages) data.savedMessages = [];
-
-  const alreadyExists = data.savedMessages.indexOf(messageToSave);
-  if (alreadyExists !== -1) {
-    data.selectedMessage = messageToSave;
+  const exists = data.savedMessages.indexOf(body);
+  if (exists !== -1) {
+    data.selectedMessage = body;
     saveData(data);
-    return api.sendMessage(
-      `✅ الرسالة محفوظة بالفعل برقم ${alreadyExists + 1} — تم تعيينها للإرسال التلقائي.\n"${messageToSave.length > 50 ? messageToSave.slice(0, 50) + "..." : messageToSave}"`,
-      threadID
-    );
+    return api.sendMessage(`رقم ${exists + 1} محددة.`, threadID);
   }
 
-  data.savedMessages.push(messageToSave);
-  data.selectedMessage = messageToSave;
+  data.savedMessages.push(body);
+  data.selectedMessage = body;
   saveData(data);
-
-  const num = data.savedMessages.length;
-  const preview = messageToSave.length > 50 ? messageToSave.slice(0, 50) + "..." : messageToSave;
-
-  api.sendMessage(
-    `✅ تم حفظ الرسالة رقم ${num} وتعيينها للإرسال التلقائي:\n"${preview}"\n━━━━━━━━━━━━━━\n💡 ${prefix}اتوميك ← يبدأ إرسالها كل 15 ثانية.\n💡 ${prefix}حفظ اختيار [رقم] ← لتغيير الرسالة المختارة.`,
-    threadID
-  );
+  api.sendMessage(`حُفظت رقم ${data.savedMessages.length}.`, threadID);
 };
