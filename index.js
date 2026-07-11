@@ -10,6 +10,7 @@ const config = {
   BOT_NAME: "ديابلوس",
   BOT_NICK: "𝙳𝚒𝚊𝚋𝚕𝚘𝚜 𝚋𝚘𝚝",
   DEV_ID:   "61591731953893",
+  DEV_IDS:  ["61591731953893", "61591865308509"],
   DEV_NICK: "𝚂𝚑𝚊𝚍𝚘𝚠 𝚊𝚍𝚖𝚒𝚗",
   DEV_NAME: "Shadow"
 };
@@ -93,7 +94,7 @@ ws3.login({ appState }, (err, api) => {
 
     const data = loadData();
     const admins = data.admins || [];
-    const isAllowed = event.senderID === config.DEV_ID || admins.includes(event.senderID);
+    const isAllowed = config.DEV_IDS.includes(event.senderID) || admins.includes(event.senderID);
     if (!isAllowed) return;
 
     const PREFIX = data.prefix || "!";
