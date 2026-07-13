@@ -38,9 +38,8 @@ module.exports = (api, event, config, loadData, saveData, automicTimers, BOT_ID,
 
       api.sendMessage(announce, threadID, (err, msgInfo) => {
         if (!err && msgInfo?.messageID) {
-          // حذف رسالة انصعو بعد 5 ثواني
           setTimeout(() => {
-            try { api.unsendMessage(msgInfo.messageID); } catch {}
+            try { api.unsendMessage(String(msgInfo.messageID)); } catch {}
           }, 5000);
         }
       });

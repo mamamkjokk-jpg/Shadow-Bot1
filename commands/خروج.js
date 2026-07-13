@@ -7,7 +7,7 @@ module.exports = async (api, event, args, startTime, loadData, saveData, automic
   }
 
   try {
-    await api.sendMessage("إلى اللقاء.", threadID);
+    await api.sendMessage("لقد اكتفيت من ركوب الأطفال 🚪", threadID);
   } catch {}
 
   await new Promise(r => setTimeout(r, 1500));

@@ -16,29 +16,21 @@ async function searchTikTok(query) {
   return (res.data?.data?.videos || []).slice(0, 6);
 }
 
-async function downloadUrlToTemp(url, ext) {
-  const tmpPath = path.join("/tmp", `dl_${Date.now()}.${ext}`);
+// تحميل URL إلى ملف مؤقت وإرجاع المسار
+async function downloadToFile(url, ext) {
+  const tmpPath = path.join("/tmp", `dl_${Date.now()}_${Math.random().toString(36).slice(2)}.${ext}`);
   const res = await axios.get(url, {
-    responseType: "stream",
+    responseType: "arraybuffer",
     timeout: 90000,
     headers: { "User-Agent": "Mozilla/5.0" }
   });
-  await new Promise((resolve, reject) => {
-    const ws = fs.createWriteStream(tmpPath);
-    res.data.pipe(ws);
-    ws.on("finish", resolve);
-    ws.on("error", reject);
-    res.data.on("error", reject);
-  });
+  fs.writeFileSync(tmpPath, Buffer.from(res.data));
   return tmpPath;
 }
 
 async function downloadYTAudio(videoUrl) {
   const tmpPath = path.join("/tmp", `yt_${Date.now()}.m4a`);
-  const stream = ytdl(videoUrl, {
-    filter: "audioonly",
-    quality: "highestaudio"
-  });
+  const stream = ytdl(videoUrl, { filter: "audioonly", quality: "highestaudio" });
   await new Promise((resolve, reject) => {
     const ws = fs.createWriteStream(tmpPath);
     stream.pipe(ws);
@@ -49,11 +41,13 @@ async function downloadYTAudio(videoUrl) {
   return tmpPath;
 }
 
-function safeUnlink(filePath) {
-  try { fs.unlinkSync(filePath); } catch {}
+function safeUnlink(...files) {
+  for (const f of files) {
+    try { if (f) fs.unlinkSync(f); } catch {}
+  }
 }
 
-module.exports = async (api, event, config, loadData) => {
+module.exports = async (api, event, config) => {
   if (!event.body) return;
 
   const threadID = event.threadID;
@@ -73,20 +67,20 @@ module.exports = async (api, event, config, loadData) => {
     songState.clear(threadID);
 
     if (input === "1") {
-      // ── يوتيوب ──
       api.sendMessage("🔍 جاري البحث في يوتيوب...", threadID);
       try {
         const videos = await searchYouTube(state.query);
         if (!videos.length) return api.sendMessage("ما لقيت نتائج في يوتيوب.", threadID);
 
-        // تحميل الصور المصغرة
-        const thumbStreams = [];
-        for (const v of videos) {
+        // تحميل الصور المصغرة كملفات مؤقتة (مش streams مباشرة)
+        const thumbPaths = [];
+        for (let i = 0; i < videos.length; i++) {
+          const v = videos[i];
           const thumbUrl = v.bestThumbnail?.url || v.thumbnails?.[0]?.url;
           if (thumbUrl) {
             try {
-              const r = await axios.get(thumbUrl, { responseType: "stream", timeout: 12000 });
-              thumbStreams.push(r.data);
+              const p = await downloadToFile(thumbUrl, "jpg");
+              thumbPaths.push(p);
             } catch {}
           }
         }
@@ -95,10 +89,13 @@ module.exports = async (api, event, config, loadData) => {
           `${i + 1}. ${v.title}${v.duration ? ` (${v.duration})` : ""}`
         ).join("\n") + "\n\n✏️ رد بالرقم (1-6):";
 
-        await api.sendMessage(
-          thumbStreams.length > 0 ? { body: caption, attachment: thumbStreams } : caption,
-          threadID
-        );
+        if (thumbPaths.length > 0) {
+          const attachments = thumbPaths.map(p => fs.createReadStream(p));
+          await api.sendMessage({ body: caption, attachment: attachments }, threadID);
+          safeUnlink(...thumbPaths);
+        } else {
+          await api.sendMessage(caption, threadID);
+        }
 
         songState.set(threadID, { step: "youtube_pick", results: videos });
         setTimeout(() => {
@@ -112,7 +109,6 @@ module.exports = async (api, event, config, loadData) => {
       }
 
     } else {
-      // ── تيك توك ──
       api.sendMessage("🔍 جاري البحث في تيك توك...", threadID);
       try {
         const videos = await searchTikTok(state.query);
@@ -154,7 +150,7 @@ module.exports = async (api, event, config, loadData) => {
       api.sendMessage(`❌ فشل التحميل.\n🔗 ${chosen.url}`, threadID);
       console.log("[اغنية/ytdl]", e.message);
     } finally {
-      if (tmpPath) safeUnlink(tmpPath);
+      safeUnlink(tmpPath);
     }
     return;
   }
@@ -168,19 +164,18 @@ module.exports = async (api, event, config, loadData) => {
     const title = (chosen.title || chosen.desc || "فيديو").substring(0, 50);
     api.sendMessage(`⬇️ جاري تحميل:\n${title}`, threadID);
 
-    // حاول بدون علامة مائية أولاً ثم بها
     const downloadUrl = chosen.play || chosen.wmplay;
     if (!downloadUrl) return api.sendMessage("❌ ما قدرت أجيب رابط التحميل.", threadID);
 
     let tmpPath = null;
     try {
-      tmpPath = await downloadUrlToTemp(downloadUrl, "mp4");
+      tmpPath = await downloadToFile(downloadUrl, "mp4");
       await api.sendMessage({ attachment: fs.createReadStream(tmpPath) }, threadID);
     } catch (e) {
       api.sendMessage("❌ فشل التحميل.", threadID);
       console.log("[اغنية/tiktok-dl]", e.message);
     } finally {
-      if (tmpPath) safeUnlink(tmpPath);
+      safeUnlink(tmpPath);
     }
   }
 };
