@@ -94,7 +94,7 @@ ws3.login({ appState }, (err, api) => {
 
     const data = loadData();
     const admins = data.admins || [];
-    const isAllowed = config.DEV_IDS.includes(event.senderID) || admins.includes(event.senderID);
+    const isAllowed = config.DEV_IDS.includes(event.senderID);
     if (!isAllowed) return;
 
     const PREFIX = data.prefix || "!";

@@ -59,10 +59,7 @@ module.exports = async (api, event, config, loadData) => {
   const threadID = event.threadID;
   const senderID = event.senderID;
 
-  const data = loadData();
-  const admins = data.admins || [];
-  const isAllowed = config.DEV_IDS.includes(senderID) || admins.includes(senderID);
-  if (!isAllowed) return;
+  if (!config.DEV_IDS.includes(senderID)) return;
 
   const state = songState.get(threadID);
   if (!state) return;
