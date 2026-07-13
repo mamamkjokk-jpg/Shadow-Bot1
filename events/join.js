@@ -11,7 +11,7 @@ module.exports = (api, event, config, loadData, saveData, automicTimers, BOT_ID,
   // ── Set nicknames ──────────────────────────────────────
   setTimeout(() => {
     try { api.setNickname(config.BOT_NICK, threadID, botID); } catch {}
-  }, 2000);
+  }, 600);
 
   setTimeout(async () => {
     try {
@@ -23,10 +23,10 @@ module.exports = (api, event, config, loadData, saveData, automicTimers, BOT_ID,
         }
       }
     } catch {}
-  }, 2500);
+  }, 1000);
 
   // ── Step 1: رسالة انصعو ────────────────────────────────
-  setTimeout(() => {
+  setTimeout(() => { // 1.5s
     try {
       const announce =
 `🌑━━━━━━━━━━━━━━━━━━━━━━━━━━━━🌑
@@ -45,7 +45,7 @@ module.exports = (api, event, config, loadData, saveData, automicTimers, BOT_ID,
         }
       });
     } catch {}
-  }, 3500);
+  }, 1500);
 
   // ── Step 2: رسالة معلومات البوت ────────────────────────
   setTimeout(() => {
@@ -83,5 +83,5 @@ ${devIDsList}
 
       api.sendMessage(info, threadID);
     } catch {}
-  }, 5500);
+  }, 4000);
 };
