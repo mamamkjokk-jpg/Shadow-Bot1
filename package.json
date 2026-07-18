@@ -7,12 +7,10 @@
     "start": "node index.js"
   },
   "dependencies": {
-    "@distube/ytdl-core": "^4.16.12",
     "canvas": "^3.2.3",
     "gif-encoder-2": "^1.0.5",
     "omggif": "^1.0.10",
-    "ws3-fca": "https://github.com/NethWs3Dev/ws3-fca/archive/refs/heads/main.tar.gz",
-    "ytsr": "^3.8.4"
+    "ws3-fca": "https://github.com/NethWs3Dev/ws3-fca/archive/refs/heads/main.tar.gz"
   },
   "overrides": {
     "es5-ext": "0.10.53"
