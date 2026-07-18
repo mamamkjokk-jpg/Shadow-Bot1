@@ -1,0 +1,264 @@
+[38;2;0;97;255mw[39m[38;2;17;84;238ms[39m[38;2;35;71;220m3[39m[38;2;52;58;203m-[39m[38;2;69;44;186mf[39m[38;2;87;31;168mc[39m[38;2;104;18;151ma[39m [32m[1m[LOG][22m[39m Logging in...
+✅ يعمل | ID: 61591969795461
+[38;2;0;97;255mw[39m[38;2;17;84;238ms[39m[38;2;35;71;220m3[39m[38;2;52;58;203m-[39m[38;2;69;44;186mf[39m[38;2;87;31;168mc[39m[38;2;104;18;151ma[39m [32m[1m[LOG][22m[39m Connecting to MQTT with new IDs... wss://edge-chat.messenger.com/chat?region=cln&sid=6725938760509806&cid=69dd0705-41c9-4461-9781-a0a958d69ec3
+[38;2;0;97;255mw[39m[38;2;17;84;238ms[39m[38;2;35;71;220m3[39m[38;2;52;58;203m-[39m[38;2;69;44;186mf[39m[38;2;87;31;168mc[39m[38;2;104;18;151ma[39m [32m[1m[LOG][22m[39m Scheduled reconnect in 53 minutes...
+[38;2;0;97;255mw[39m[38;2;17;84;238ms[39m[38;2;35;71;220m3[39m[38;2;52;58;203m-[39m[38;2;69;44;186mf[39m[38;2;87;31;168mc[39m[38;2;104;18;151ma[39m [32m[1m[LOG][22m[39m Successfully connected to MQTT.
+[38;2;0;97;255mw[39m[38;2;17;84;238ms[39m[38;2;35;71;220m3[39m[38;2;52;58;203m-[39m[38;2;69;44;186mf[39m[38;2;87;31;168mc[39m[38;2;104;18;151ma[39m [32m[1m[LOG][22m[39m Fetching account info...
+[38;2;0;97;255mw[39m[38;2;17;84;238ms[39m[38;2;35;71;220m3[39m[38;2;52;58;203m-[39m[38;2;69;44;186mf[39m[38;2;87;31;168mc[39m[38;2;104;18;151ma[39m [32m[1m[LOG][22m[39m Hello, ديابلوس شادو (61591969795461)
+خطأ: Error: MessageID should be of type string and not String.
+    at Object.<anonymous> [90m(/home/runner/workspace/[39mnode_modules/[4mws3-fca[24m/src/deltas/apis/messaging/sendMessage.js:106:61[90m)[39m
+    at api.sendMessage [90m(/home/runner/workspace/[39mindex.js:69:14[90m)[39m
+    at Timeout._onTimeout [90m(/home/runner/workspace/[39mevents/join.js:39:11[90m)[39m
+[90m    at listOnTimeout (node:internal/timers:581:17)[39m
+[90m    at process.processTimers (node:internal/timers:519:7)[39m
+Error: type gridShelfViewModel is not known
+    at parseItem (/home/runner/workspace/node_modules/ytsr/lib/parseItem.js:83:13)
+    at catchAndLogFunc (/home/runner/workspace/node_modules/ytsr/lib/parseItem.js:90:12)
+    at module.exports (/home/runner/workspace/node_modules/ytsr/lib/parseItem.js:119:46)
+    at /home/runner/workspace/node_modules/ytsr/lib/main.js:53:34
+    at Array.map (<anonymous>)
+    at module.exports (/home/runner/workspace/node_modules/ytsr/lib/main.js:53:25)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async searchYouTube (/home/runner/workspace/events/اغنية.js:9:15)
+    at async module.exports [as اغنية] (/home/runner/workspace/events/اغنية.js:79:24)
+
+/********************************************************************************************************************************************************************************************************
+failed at func parseItem: type gridShelfViewModel is not known
+pls post the the files in /home/runner/workspace/node_modules/ytsr/dumps to https://github.com/TimeForANinja/node-ytsr/issues
+os: linux-x64, node.js: v20.20.0, ytsr: 3.8.4
+********************************************************************************************************************************************************************************************************\
+Error: type lockupViewModel is not known
+    at parseItem (/home/runner/workspace/node_modules/ytsr/lib/parseItem.js:83:13)
+    at catchAndLogFunc (/home/runner/workspace/node_modules/ytsr/lib/parseItem.js:90:12)
+    at module.exports (/home/runner/workspace/node_modules/ytsr/lib/parseItem.js:119:46)
+    at /home/runner/workspace/node_modules/ytsr/lib/main.js:53:34
+    at Array.map (<anonymous>)
+    at module.exports (/home/runner/workspace/node_modules/ytsr/lib/main.js:53:25)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async searchYouTube (/home/runner/workspace/events/اغنية.js:9:15)
+    at async module.exports [as اغنية] (/home/runner/workspace/events/اغنية.js:79:24)
+
+/********************************************************************************************************************************************************************************************************
+failed at func parseItem: type lockupViewModel is not known
+pls post the the files in /home/runner/workspace/node_modules/ytsr/dumps to https://github.com/TimeForANinja/node-ytsr/issues
+os: linux-x64, node.js: v20.20.0, ytsr: 3.8.4
+********************************************************************************************************************************************************************************************************\
+Error: type gridShelfViewModel is not known
+    at parseItem (/home/runner/workspace/node_modules/ytsr/lib/parseItem.js:83:13)
+    at catchAndLogFunc (/home/runner/workspace/node_modules/ytsr/lib/parseItem.js:90:12)
+    at module.exports (/home/runner/workspace/node_modules/ytsr/lib/parseItem.js:119:46)
+    at /home/runner/workspace/node_modules/ytsr/lib/main.js:53:34
+    at Array.map (<anonymous>)
+    at module.exports (/home/runner/workspace/node_modules/ytsr/lib/main.js:53:25)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async searchYouTube (/home/runner/workspace/events/اغنية.js:9:15)
+    at async module.exports [as اغنية] (/home/runner/workspace/events/اغنية.js:79:24)
+
+/********************************************************************************************************************************************************************************************************
+failed at func parseItem: type gridShelfViewModel is not known
+pls post the the files in /home/runner/workspace/node_modules/ytsr/dumps to https://github.com/TimeForANinja/node-ytsr/issues
+os: linux-x64, node.js: v20.20.0, ytsr: 3.8.4
+********************************************************************************************************************************************************************************************************\
+Error: type lockupViewModel is not known
+    at parseItem (/home/runner/workspace/node_modules/ytsr/lib/parseItem.js:83:13)
+    at catchAndLogFunc (/home/runner/workspace/node_modules/ytsr/lib/parseItem.js:90:12)
+    at module.exports (/home/runner/workspace/node_modules/ytsr/lib/parseItem.js:119:46)
+    at /home/runner/workspace/node_modules/ytsr/lib/main.js:53:34
+    at Array.map (<anonymous>)
+    at module.exports (/home/runner/workspace/node_modules/ytsr/lib/main.js:53:25)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async searchYouTube (/home/runner/workspace/events/اغنية.js:9:15)
+    at async module.exports [as اغنية] (/home/runner/workspace/events/اغنية.js:79:24)
+
+/********************************************************************************************************************************************************************************************************
+failed at func parseItem: type lockupViewModel is not known
+pls post the the files in /home/runner/workspace/node_modules/ytsr/dumps to https://github.com/TimeForANinja/node-ytsr/issues
+os: linux-x64, node.js: v20.20.0, ytsr: 3.8.4
+********************************************************************************************************************************************************************************************************\
+[33mWARNING:[0m Could not parse decipher function.
+Stream URLs will be missing.
+Please report this issue by uploading the "1783929052163-player-script.js" file on https://github.com/distubejs/ytdl-core/issues/144.
+[33mWARNING:[0m Could not parse n transform function.
+Please report this issue by uploading the "1783929052173-player-script.js" file on https://github.com/distubejs/ytdl-core/issues/144.
+[اغنية/ytdl] Status code: 403
+[38;2;0;97;255mw[39m[38;2;17;84;238ms[39m[38;2;35;71;220m3[39m[38;2;52;58;203m-[39m[38;2;69;44;186mf[39m[38;2;87;31;168mc[39m[38;2;104;18;151ma[39m [31m[1m[ERROR][22m[39m listenMqtt Error: Connection refused: Server unavailable
+    at MqttClient._handleConnack [90m(/home/runner/workspace/[39mnode_modules/[4mmqtt[24m/lib/client.js:1076:15[90m)[39m
+    at MqttClient._handlePacket [90m(/home/runner/workspace/[39mnode_modules/[4mmqtt[24m/lib/client.js:365:12[90m)[39m
+    at work [90m(/home/runner/workspace/[39mnode_modules/[4mmqtt[24m/lib/client.js:283:12[90m)[39m
+    at writable._write [90m(/home/runner/workspace/[39mnode_modules/[4mmqtt[24m/lib/client.js:294:5[90m)[39m
+    at doWrite [90m(/home/runner/workspace/[39mnode_modules/[4mmqtt[24m/node_modules/[4mreadable-stream[24m/lib/_stream_writable.js:428:64[90m)[39m
+    at writeOrBuffer [90m(/home/runner/workspace/[39mnode_modules/[4mmqtt[24m/node_modules/[4mreadable-stream[24m/lib/_stream_writable.js:417:5[90m)[39m
+    at Writable.write [90m(/home/runner/workspace/[39mnode_modules/[4mmqtt[24m/node_modules/[4mreadable-stream[24m/lib/_stream_writable.js:334:11[90m)[39m
+    at Duplexify.ondata [90m(/home/runner/workspace/[39mnode_modules/[4mduplexify[24m/node_modules/[4mreadable-stream[24m/lib/_stream_readable.js:619:20[90m)[39m
+[90m    at Duplexify.emit (node:events:524:28)[39m
+    at addChunk [90m(/home/runner/workspace/[39mnode_modules/[4mduplexify[24m/node_modules/[4mreadable-stream[24m/lib/_stream_readable.js:291:12[90m)[39m {
+  code: [33m3[39m
+}
+خطأ: TypeError: Cannot read properties of undefined (reading 'reduce')
+    at sendContent [90m(/home/runner/workspace/[39mnode_modules/[4mws3-fca[24m/src/deltas/apis/messaging/sendMessage.js:94:49[90m)[39m
+[90m    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)[39m
+    at async Object.<anonymous> [90m(/home/runner/workspace/[39mnode_modules/[4mws3-fca[24m/src/deltas/apis/messaging/sendMessage.js:213:20[90m)[39m
+خطأ: TypeError: Cannot read properties of undefined (reading 'reduce')
+    at sendContent [90m(/home/runner/workspace/[39mnode_modules/[4mws3-fca[24m/src/deltas/apis/messaging/sendMessage.js:94:49[90m)[39m
+[90m    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)[39m
+    at async Object.<anonymous> [90m(/home/runner/workspace/[39mnode_modules/[4mws3-fca[24m/src/deltas/apis/messaging/sendMessage.js:213:20[90m)[39m
+خطأ: TypeError: Cannot read properties of undefined (reading 'reduce')
+    at sendContent [90m(/home/runner/workspace/[39mnode_modules/[4mws3-fca[24m/src/deltas/apis/messaging/sendMessage.js:94:49[90m)[39m
+[90m    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)[39m
+    at async Object.<anonymous> [90m(/home/runner/workspace/[39mnode_modules/[4mws3-fca[24m/src/deltas/apis/messaging/sendMessage.js:213:20[90m)[39m
+خطأ: TypeError: Cannot read properties of undefined (reading 'reduce')
+    at sendContent [90m(/home/runner/workspace/[39mnode_modules/[4mws3-fca[24m/src/deltas/apis/messaging/sendMessage.js:94:49[90m)[39m
+[90m    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)[39m
+    at async Object.<anonymous> [90m(/home/runner/workspace/[39mnode_modules/[4mws3-fca[24m/src/deltas/apis/messaging/sendMessage.js:213:20[90m)[39m
+خطأ: TypeError: Cannot read properties of undefined (reading 'reduce')
+    at sendContent [90m(/home/runner/workspace/[39mnode_modules/[4mws3-fca[24m/src/deltas/apis/messaging/sendMessage.js:94:49[90m)[39m
+[90m    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)[39m
+    at async Object.<anonymous> [90m(/home/runner/workspace/[39mnode_modules/[4mws3-fca[24m/src/deltas/apis/messaging/sendMessage.js:213:20[90m)[39m
+خطأ: TypeError: Cannot read properties of undefined (reading 'reduce')
+    at sendContent [90m(/home/runner/workspace/[39mnode_modules/[4mws3-fca[24m/src/deltas/apis/messaging/sendMessage.js:94:49[90m)[39m
+[90m    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)[39m
+    at async Object.<anonymous> [90m(/home/runner/workspace/[39mnode_modules/[4mws3-fca[24m/src/deltas/apis/messaging/sendMessage.js:213:20[90m)[39m
+خطأ: TypeError: Cannot read properties of undefined (reading 'reduce')
+    at sendContent [90m(/home/runner/workspace/[39mnode_modules/[4mws3-fca[24m/src/deltas/apis/messaging/sendMessage.js:94:49[90m)[39m
+[90m    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)[39m
+    at async Object.<anonymous> [90m(/home/runner/workspace/[39mnode_modules/[4mws3-fca[24m/src/deltas/apis/messaging/sendMessage.js:213:20[90m)[39m
+خطأ: TypeError: Cannot read properties of undefined (reading 'reduce')
+    at sendContent [90m(/home/runner/workspace/[39mnode_modules/[4mws3-fca[24m/src/deltas/apis/messaging/sendMessage.js:94:49[90m)[39m
+[90m    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)[39m
+    at async Object.<anonymous> [90m(/home/runner/workspace/[39mnode_modules/[4mws3-fca[24m/src/deltas/apis/messaging/sendMessage.js:213:20[90m)[39m
+خطأ: TypeError: Cannot read properties of undefined (reading 'reduce')
+    at sendContent [90m(/home/runner/workspace/[39mnode_modules/[4mws3-fca[24m/src/deltas/apis/messaging/sendMessage.js:94:49[90m)[39m
+[90m    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)[39m
+    at async Object.<anonymous> [90m(/home/runner/workspace/[39mnode_modules/[4mws3-fca[24m/src/deltas/apis/messaging/sendMessage.js:213:20[90m)[39m
+خطأ: TypeError: Cannot read properties of undefined (reading 'reduce')
+    at sendContent [90m(/home/runner/workspace/[39mnode_modules/[4mws3-fca[24m/src/deltas/apis/messaging/sendMessage.js:94:49[90m)[39m
+[90m    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)[39m
+    at async Object.<anonymous> [90m(/home/runner/workspace/[39mnode_modules/[4mws3-fca[24m/src/deltas/apis/messaging/sendMessage.js:213:20[90m)[39m
+خطأ: TypeError: Cannot read properties of undefined (reading 'reduce')
+    at sendContent [90m(/home/runner/workspace/[39mnode_modules/[4mws3-fca[24m/src/deltas/apis/messaging/sendMessage.js:94:49[90m)[39m
+[90m    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)[39m
+    at async Object.<anonymous> [90m(/home/runner/workspace/[39mnode_modules/[4mws3-fca[24m/src/deltas/apis/messaging/sendMessage.js:213:20[90m)[39m
+خطأ: TypeError: Cannot read properties of undefined (reading 'reduce')
+    at sendContent [90m(/home/runner/workspace/[39mnode_modules/[4mws3-fca[24m/src/deltas/apis/messaging/sendMessage.js:94:49[90m)[39m
+[90m    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)[39m
+    at async Object.<anonymous> [90m(/home/runner/workspace/[39mnode_modules/[4mws3-fca[24m/src/deltas/apis/messaging/sendMessage.js:213:20[90m)[39m
+خطأ: TypeError: Cannot read properties of undefined (reading 'reduce')
+    at sendContent [90m(/home/runner/workspace/[39mnode_modules/[4mws3-fca[24m/src/deltas/apis/messaging/sendMessage.js:94:49[90m)[39m
+[90m    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)[39m
+    at async Object.<anonymous> [90m(/home/runner/workspace/[39mnode_modules/[4mws3-fca[24m/src/deltas/apis/messaging/sendMessage.js:213:20[90m)[39m
+خطأ: TypeError: Cannot read properties of undefined (reading 'reduce')
+    at sendContent [90m(/home/runner/workspace/[39mnode_modules/[4mws3-fca[24m/src/deltas/apis/messaging/sendMessage.js:94:49[90m)[39m
+[90m    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)[39m
+    at async Object.<anonymous> [90m(/home/runner/workspace/[39mnode_modules/[4mws3-fca[24m/src/deltas/apis/messaging/sendMessage.js:213:20[90m)[39m
+خطأ: TypeError: Cannot read properties of undefined (reading 'reduce')
+    at sendContent [90m(/home/runner/workspace/[39mnode_modules/[4mws3-fca[24m/src/deltas/apis/messaging/sendMessage.js:94:49[90m)[39m
+[90m    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)[39m
+    at async Object.<anonymous> [90m(/home/runner/workspace/[39mnode_modules/[4mws3-fca[24m/src/deltas/apis/messaging/sendMessage.js:213:20[90m)[39m
+خطأ: TypeError: Cannot read properties of undefined (reading 'reduce')
+    at sendContent [90m(/home/runner/workspace/[39mnode_modules/[4mws3-fca[24m/src/deltas/apis/messaging/sendMessage.js:94:49[90m)[39m
+[90m    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)[39m
+    at async Object.<anonymous> [90m(/home/runner/workspace/[39mnode_modules/[4mws3-fca[24m/src/deltas/apis/messaging/sendMessage.js:213:20[90m)[39m
+خطأ: TypeError: Cannot read properties of undefined (reading 'reduce')
+    at sendContent [90m(/home/runner/workspace/[39mnode_modules/[4mws3-fca[24m/src/deltas/apis/messaging/sendMessage.js:94:49[90m)[39m
+[90m    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)[39m
+    at async Object.<anonymous> [90m(/home/runner/workspace/[39mnode_modules/[4mws3-fca[24m/src/deltas/apis/messaging/sendMessage.js:213:20[90m)[39m
+خطأ: TypeError: Cannot read properties of undefined (reading 'reduce')
+    at sendContent [90m(/home/runner/workspace/[39mnode_modules/[4mws3-fca[24m/src/deltas/apis/messaging/sendMessage.js:94:49[90m)[39m
+[90m    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)[39m
+    at async Object.<anonymous> [90m(/home/runner/workspace/[39mnode_modules/[4mws3-fca[24m/src/deltas/apis/messaging/sendMessage.js:213:20[90m)[39m
+خطأ: TypeError: Cannot read properties of undefined (reading 'reduce')
+    at sendContent [90m(/home/runner/workspace/[39mnode_modules/[4mws3-fca[24m/src/deltas/apis/messaging/sendMessage.js:94:49[90m)[39m
+[90m    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)[39m
+    at async Object.<anonymous> [90m(/home/runner/workspace/[39mnode_modules/[4mws3-fca[24m/src/deltas/apis/messaging/sendMessage.js:213:20[90m)[39m
+خطأ: TypeError: Cannot read properties of undefined (reading 'reduce')
+    at sendContent [90m(/home/runner/workspace/[39mnode_modules/[4mws3-fca[24m/src/deltas/apis/messaging/sendMessage.js:94:49[90m)[39m
+[90m    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)[39m
+    at async Object.<anonymous> [90m(/home/runner/workspace/[39mnode_modules/[4mws3-fca[24m/src/deltas/apis/messaging/sendMessage.js:213:20[90m)[39m
+خطأ: TypeError: Cannot read properties of undefined (reading 'reduce')
+    at sendContent [90m(/home/runner/workspace/[39mnode_modules/[4mws3-fca[24m/src/deltas/apis/messaging/sendMessage.js:94:49[90m)[39m
+[90m    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)[39m
+    at async Object.<anonymous> [90m(/home/runner/workspace/[39mnode_modules/[4mws3-fca[24m/src/deltas/apis/messaging/sendMessage.js:213:20[90m)[39m
+خطأ: TypeError: Cannot read properties of undefined (reading 'reduce')
+    at sendContent [90m(/home/runner/workspace/[39mnode_modules/[4mws3-fca[24m/src/deltas/apis/messaging/sendMessage.js:94:49[90m)[39m
+[90m    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)[39m
+    at async Object.<anonymous> [90m(/home/runner/workspace/[39mnode_modules/[4mws3-fca[24m/src/deltas/apis/messaging/sendMessage.js:213:20[90m)[39m
+خطأ: TypeError: Cannot read properties of undefined (reading 'reduce')
+    at sendContent [90m(/home/runner/workspace/[39mnode_modules/[4mws3-fca[24m/src/deltas/apis/messaging/sendMessage.js:94:49[90m)[39m
+[90m    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)[39m
+    at async Object.<anonymous> [90m(/home/runner/workspace/[39mnode_modules/[4mws3-fca[24m/src/deltas/apis/messaging/sendMessage.js:213:20[90m)[39m
+خطأ: TypeError: Cannot read properties of undefined (reading 'reduce')
+    at sendContent [90m(/home/runner/workspace/[39mnode_modules/[4mws3-fca[24m/src/deltas/apis/messaging/sendMessage.js:94:49[90m)[39m
+[90m    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)[39m
+    at async Object.<anonymous> [90m(/home/runner/workspace/[39mnode_modules/[4mws3-fca[24m/src/deltas/apis/messaging/sendMessage.js:213:20[90m)[39m
+خطأ: TypeError: Cannot read properties of undefined (reading 'reduce')
+    at sendContent [90m(/home/runner/workspace/[39mnode_modules/[4mws3-fca[24m/src/deltas/apis/messaging/sendMessage.js:94:49[90m)[39m
+[90m    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)[39m
+    at async Object.<anonymous> [90m(/home/runner/workspace/[39mnode_modules/[4mws3-fca[24m/src/deltas/apis/messaging/sendMessage.js:213:20[90m)[39m
+خطأ: TypeError: Cannot read properties of undefined (reading 'reduce')
+    at sendContent [90m(/home/runner/workspace/[39mnode_modules/[4mws3-fca[24m/src/deltas/apis/messaging/sendMessage.js:94:49[90m)[39m
+[90m    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)[39m
+    at async Object.<anonymous> [90m(/home/runner/workspace/[39mnode_modules/[4mws3-fca[24m/src/deltas/apis/messaging/sendMessage.js:213:20[90m)[39m
+خطأ: TypeError: Cannot read properties of undefined (reading 'reduce')
+    at sendContent [90m(/home/runner/workspace/[39mnode_modules/[4mws3-fca[24m/src/deltas/apis/messaging/sendMessage.js:94:49[90m)[39m
+[90m    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)[39m
+    at async Object.<anonymous> [90m(/home/runner/workspace/[39mnode_modules/[4mws3-fca[24m/src/deltas/apis/messaging/sendMessage.js:213:20[90m)[39m
+خطأ: TypeError: Cannot read properties of undefined (reading 'reduce')
+    at sendContent [90m(/home/runner/workspace/[39mnode_modules/[4mws3-fca[24m/src/deltas/apis/messaging/sendMessage.js:94:49[90m)[39m
+[90m    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)[39m
+    at async Object.<anonymous> [90m(/home/runner/workspace/[39mnode_modules/[4mws3-fca[24m/src/deltas/apis/messaging/sendMessage.js:213:20[90m)[39m
+خطأ: TypeError: Cannot read properties of undefined (reading 'reduce')
+    at sendContent [90m(/home/runner/workspace/[39mnode_modules/[4mws3-fca[24m/src/deltas/apis/messaging/sendMessage.js:94:49[90m)[39m
+[90m    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)[39m
+    at async Object.<anonymous> [90m(/home/runner/workspace/[39mnode_modules/[4mws3-fca[24m/src/deltas/apis/messaging/sendMessage.js:213:20[90m)[39m
+خطأ: TypeError: Cannot read properties of undefined (reading 'reduce')
+    at sendContent [90m(/home/runner/workspace/[39mnode_modules/[4mws3-fca[24m/src/deltas/apis/messaging/sendMessage.js:94:49[90m)[39m
+[90m    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)[39m
+    at async Object.<anonymous> [90m(/home/runner/workspace/[39mnode_modules/[4mws3-fca[24m/src/deltas/apis/messaging/sendMessage.js:213:20[90m)[39m
+خطأ: TypeError: Cannot read properties of undefined (reading 'reduce')
+    at sendContent [90m(/home/runner/workspace/[39mnode_modules/[4mws3-fca[24m/src/deltas/apis/messaging/sendMessage.js:94:49[90m)[39m
+[90m    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)[39m
+    at async Object.<anonymous> [90m(/home/runner/workspace/[39mnode_modules/[4mws3-fca[24m/src/deltas/apis/messaging/sendMessage.js:213:20[90m)[39m
+خطأ: TypeError: Cannot read properties of undefined (reading 'reduce')
+    at sendContent [90m(/home/runner/workspace/[39mnode_modules/[4mws3-fca[24m/src/deltas/apis/messaging/sendMessage.js:94:49[90m)[39m
+[90m    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)[39m
+    at async Object.<anonymous> [90m(/home/runner/workspace/[39mnode_modules/[4mws3-fca[24m/src/deltas/apis/messaging/sendMessage.js:213:20[90m)[39m
+خطأ: TypeError: Cannot read properties of undefined (reading 'reduce')
+    at sendContent [90m(/home/runner/workspace/[39mnode_modules/[4mws3-fca[24m/src/deltas/apis/messaging/sendMessage.js:94:49[90m)[39m
+[90m    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)[39m
+    at async Object.<anonymous> [90m(/home/runner/workspace/[39mnode_modules/[4mws3-fca[24m/src/deltas/apis/messaging/sendMessage.js:213:20[90m)[39m
+خطأ: TypeError: Cannot read properties of undefined (reading 'reduce')
+    at sendContent [90m(/home/runner/workspace/[39mnode_modules/[4mws3-fca[24m/src/deltas/apis/messaging/sendMessage.js:94:49[90m)[39m
+[90m    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)[39m
+    at async Object.<anonymous> [90m(/home/runner/workspace/[39mnode_modules/[4mws3-fca[24m/src/deltas/apis/messaging/sendMessage.js:213:20[90m)[39m
+خطأ: TypeError: Cannot read properties of undefined (reading 'reduce')
+    at sendContent [90m(/home/runner/workspace/[39mnode_modules/[4mws3-fca[24m/src/deltas/apis/messaging/sendMessage.js:94:49[90m)[39m
+[90m    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)[39m
+    at async Object.<anonymous> [90m(/home/runner/workspace/[39mnode_modules/[4mws3-fca[24m/src/deltas/apis/messaging/sendMessage.js:213:20[90m)[39m
+خطأ: TypeError: Cannot read properties of undefined (reading 'reduce')
+    at sendContent [90m(/home/runner/workspace/[39mnode_modules/[4mws3-fca[24m/src/deltas/apis/messaging/sendMessage.js:94:49[90m)[39m
+[90m    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)[39m
+    at async Object.<anonymous> [90m(/home/runner/workspace/[39mnode_modules/[4mws3-fca[24m/src/deltas/apis/messaging/sendMessage.js:213:20[90m)[39m
+خطأ: TypeError: Cannot read properties of undefined (reading 'reduce')
+    at sendContent [90m(/home/runner/workspace/[39mnode_modules/[4mws3-fca[24m/src/deltas/apis/messaging/sendMessage.js:94:49[90m)[39m
+[90m    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)[39m
+    at async Object.<anonymous> [90m(/home/runner/workspace/[39mnode_modules/[4mws3-fca[24m/src/deltas/apis/messaging/sendMessage.js:213:20[90m)[39m
+خطأ: TypeError: Cannot read properties of undefined (reading 'reduce')
+    at sendContent [90m(/home/runner/workspace/[39mnode_modules/[4mws3-fca[24m/src/deltas/apis/messaging/sendMessage.js:94:49[90m)[39m
+[90m    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)[39m
+    at async Object.<anonymous> [90m(/home/runner/workspace/[39mnode_modules/[4mws3-fca[24m/src/deltas/apis/messaging/sendMessage.js:213:20[90m)[39m
+خطأ: TypeError: Cannot read properties of undefined (reading 'reduce')
+    at sendContent [90m(/home/runner/workspace/[39mnode_modules/[4mws3-fca[24m/src/deltas/apis/messaging/sendMessage.js:94:49[90m)[39m
+[90m    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)[39m
+    at async Object.<anonymous> [90m(/home/runner/workspace/[39mnode_modules/[4mws3-fca[24m/src/deltas/apis/messaging/sendMessage.js:213:20[90m)[39m
+خطأ: TypeError: Cannot read properties of undefined (reading 'reduce')
+    at sendContent [90m(/home/runner/workspace/[39mnode_modules/[4mws3-fca[24m/src/deltas/apis/messaging/sendMessage.js:94:49[90m)[39m
+[90m    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)[39m
+    at async Object.<anonymous> [90m(/home/runner/workspace/[39mnode_modules/[4mws3-fca[24m/src/deltas/apis/messaging/sendMessage.js:213:20[90m)[39m
+خطأ: TypeError: Cannot read properties of undefined (reading 'reduce')
+    at sendContent [90m(/home/runner/workspace/[39mnode_modules/[4mws3-fca[24m/src/deltas/apis/messaging/sendMessage.js:94:49[90m)[39m
+[90m    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)[39m
+    at async Object.<anonymous> [90m(/home/runner/workspace/[39mnode_modules/[4mws3-fca[24m/src/deltas/apis/messaging/sendMessage.js:213:20[90m)[39m
+خطأ: TypeError: Cannot read properties of undefined (reading 'reduce')
+    at sendContent [90m(/home/runner/workspace/[39mnode_modules/[4mws3-fca[24m/src/deltas/apis/messaging/sendMessage.js:94:49[90m)[39m
+[90m    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)[39m
+    at async Object.<anonymous> [90m(/home/runner/workspace/[39mnode_modules/[4mws3-fca[24m/src/deltas/apis/messaging/sendMessage.js:213:20[90m)[39m

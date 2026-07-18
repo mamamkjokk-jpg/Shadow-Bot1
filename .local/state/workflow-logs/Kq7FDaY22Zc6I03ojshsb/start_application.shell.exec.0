@@ -1,0 +1,9 @@
+[38;2;0;97;255mw[39m[38;2;17;84;238ms[39m[38;2;35;71;220m3[39m[38;2;52;58;203m-[39m[38;2;69;44;186mf[39m[38;2;87;31;168mc[39m[38;2;104;18;151ma[39m [32m[1m[LOG][22m[39m Logging in...
+[38;2;0;97;255mw[39m[38;2;17;84;238ms[39m[38;2;35;71;220m3[39m[38;2;52;58;203m-[39m[38;2;69;44;186mf[39m[38;2;87;31;168mc[39m[38;2;104;18;151ma[39m [31m[1m[ERROR][22m[39m loginHelper Error: Error retrieving userID. This can be caused by many factors, including being blocked by Facebook for logging in from an unknown location. Try logging in with a browser to verify.
+    at buildAPI [90m(/home/runner/workspace/[39mnode_modules/[4mws3-fca[24m/src/core/models/buildAPI.js:22:15[90m)[39m
+    at loginHelper [90m(/home/runner/workspace/[39mnode_modules/[4mws3-fca[24m/src/core/models/loginHelper.js:112:49[90m)[39m
+[90m    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)[39m
+خطأ في تسجيل الدخول: Error: Error retrieving userID. This can be caused by many factors, including being blocked by Facebook for logging in from an unknown location. Try logging in with a browser to verify.
+    at buildAPI [90m(/home/runner/workspace/[39mnode_modules/[4mws3-fca[24m/src/core/models/buildAPI.js:22:15[90m)[39m
+    at loginHelper [90m(/home/runner/workspace/[39mnode_modules/[4mws3-fca[24m/src/core/models/loginHelper.js:112:49[90m)[39m
+[90m    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)[39m

@@ -1,0 +1,89 @@
+[38;2;0;97;255mw[39m[38;2;17;84;238ms[39m[38;2;35;71;220m3[39m[38;2;52;58;203m-[39m[38;2;69;44;186mf[39m[38;2;87;31;168mc[39m[38;2;104;18;151ma[39m [32m[1m[LOG][22m[39m Logging in...
+✅ يعمل | ID: 61591969795461
+[38;2;0;97;255mw[39m[38;2;17;84;238ms[39m[38;2;35;71;220m3[39m[38;2;52;58;203m-[39m[38;2;69;44;186mf[39m[38;2;87;31;168mc[39m[38;2;104;18;151ma[39m [32m[1m[LOG][22m[39m Connecting to MQTT with new IDs... wss://edge-chat.messenger.com/chat?region=cln&sid=5115965666930202&cid=070ca236-7938-4435-ac2a-6380079eeddb
+[38;2;0;97;255mw[39m[38;2;17;84;238ms[39m[38;2;35;71;220m3[39m[38;2;52;58;203m-[39m[38;2;69;44;186mf[39m[38;2;87;31;168mc[39m[38;2;104;18;151ma[39m [32m[1m[LOG][22m[39m Scheduled reconnect in 27 minutes...
+[38;2;0;97;255mw[39m[38;2;17;84;238ms[39m[38;2;35;71;220m3[39m[38;2;52;58;203m-[39m[38;2;69;44;186mf[39m[38;2;87;31;168mc[39m[38;2;104;18;151ma[39m [32m[1m[LOG][22m[39m Successfully connected to MQTT.
+[38;2;0;97;255mw[39m[38;2;17;84;238ms[39m[38;2;35;71;220m3[39m[38;2;52;58;203m-[39m[38;2;69;44;186mf[39m[38;2;87;31;168mc[39m[38;2;104;18;151ma[39m [32m[1m[LOG][22m[39m Fetching account info...
+[38;2;0;97;255mw[39m[38;2;17;84;238ms[39m[38;2;35;71;220m3[39m[38;2;52;58;203m-[39m[38;2;69;44;186mf[39m[38;2;87;31;168mc[39m[38;2;104;18;151ma[39m [32m[1m[LOG][22m[39m Hello, ديابلوس شادو (61591969795461)
+خطأ: Error: MessageID should be of type string and not String.
+    at Object.<anonymous> [90m(/home/runner/workspace/[39mnode_modules/[4mws3-fca[24m/src/deltas/apis/messaging/sendMessage.js:106:61[90m)[39m
+    at api.sendMessage [90m(/home/runner/workspace/[39mindex.js:69:14[90m)[39m
+    at Timeout._onTimeout [90m(/home/runner/workspace/[39mevents/join.js:39:11[90m)[39m
+[90m    at listOnTimeout (node:internal/timers:581:17)[39m
+[90m    at process.processTimers (node:internal/timers:519:7)[39m
+Error: type gridShelfViewModel is not known
+    at parseItem (/home/runner/workspace/node_modules/ytsr/lib/parseItem.js:83:13)
+    at catchAndLogFunc (/home/runner/workspace/node_modules/ytsr/lib/parseItem.js:90:12)
+    at module.exports (/home/runner/workspace/node_modules/ytsr/lib/parseItem.js:119:46)
+    at /home/runner/workspace/node_modules/ytsr/lib/main.js:53:34
+    at Array.map (<anonymous>)
+    at module.exports (/home/runner/workspace/node_modules/ytsr/lib/main.js:53:25)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async searchYouTube (/home/runner/workspace/events/اغنية.js:9:15)
+    at async module.exports [as اغنية] (/home/runner/workspace/events/اغنية.js:54:24)
+
+/********************************************************************************************************************************************************************************************************
+failed at func parseItem: type gridShelfViewModel is not known
+pls post the the files in /home/runner/workspace/node_modules/ytsr/dumps to https://github.com/TimeForANinja/node-ytsr/issues
+os: linux-x64, node.js: v20.20.0, ytsr: 3.8.4
+********************************************************************************************************************************************************************************************************\
+Error: type lockupViewModel is not known
+    at parseItem (/home/runner/workspace/node_modules/ytsr/lib/parseItem.js:83:13)
+    at catchAndLogFunc (/home/runner/workspace/node_modules/ytsr/lib/parseItem.js:90:12)
+    at module.exports (/home/runner/workspace/node_modules/ytsr/lib/parseItem.js:119:46)
+    at /home/runner/workspace/node_modules/ytsr/lib/main.js:53:34
+    at Array.map (<anonymous>)
+    at module.exports (/home/runner/workspace/node_modules/ytsr/lib/main.js:53:25)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async searchYouTube (/home/runner/workspace/events/اغنية.js:9:15)
+    at async module.exports [as اغنية] (/home/runner/workspace/events/اغنية.js:54:24)
+
+/********************************************************************************************************************************************************************************************************
+failed at func parseItem: type lockupViewModel is not known
+pls post the the files in /home/runner/workspace/node_modules/ytsr/dumps to https://github.com/TimeForANinja/node-ytsr/issues
+os: linux-x64, node.js: v20.20.0, ytsr: 3.8.4
+********************************************************************************************************************************************************************************************************\
+Error: type gridShelfViewModel is not known
+    at parseItem (/home/runner/workspace/node_modules/ytsr/lib/parseItem.js:83:13)
+    at catchAndLogFunc (/home/runner/workspace/node_modules/ytsr/lib/parseItem.js:90:12)
+    at module.exports (/home/runner/workspace/node_modules/ytsr/lib/parseItem.js:119:46)
+    at /home/runner/workspace/node_modules/ytsr/lib/main.js:53:34
+    at Array.map (<anonymous>)
+    at module.exports (/home/runner/workspace/node_modules/ytsr/lib/main.js:53:25)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async searchYouTube (/home/runner/workspace/events/اغنية.js:9:15)
+    at async module.exports [as اغنية] (/home/runner/workspace/events/اغنية.js:54:24)
+
+/********************************************************************************************************************************************************************************************************
+failed at func parseItem: type gridShelfViewModel is not known
+pls post the the files in /home/runner/workspace/node_modules/ytsr/dumps to https://github.com/TimeForANinja/node-ytsr/issues
+os: linux-x64, node.js: v20.20.0, ytsr: 3.8.4
+********************************************************************************************************************************************************************************************************\
+Error: type lockupViewModel is not known
+    at parseItem (/home/runner/workspace/node_modules/ytsr/lib/parseItem.js:83:13)
+    at catchAndLogFunc (/home/runner/workspace/node_modules/ytsr/lib/parseItem.js:90:12)
+    at module.exports (/home/runner/workspace/node_modules/ytsr/lib/parseItem.js:119:46)
+    at /home/runner/workspace/node_modules/ytsr/lib/main.js:53:34
+    at Array.map (<anonymous>)
+    at module.exports (/home/runner/workspace/node_modules/ytsr/lib/main.js:53:25)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async searchYouTube (/home/runner/workspace/events/اغنية.js:9:15)
+    at async module.exports [as اغنية] (/home/runner/workspace/events/اغنية.js:54:24)
+
+/********************************************************************************************************************************************************************************************************
+failed at func parseItem: type lockupViewModel is not known
+pls post the the files in /home/runner/workspace/node_modules/ytsr/dumps to https://github.com/TimeForANinja/node-ytsr/issues
+os: linux-x64, node.js: v20.20.0, ytsr: 3.8.4
+********************************************************************************************************************************************************************************************************\
+[33mWARNING:[0m Could not parse decipher function.
+Stream URLs will be missing.
+Please report this issue by uploading the "1783892732493-player-script.js" file on https://github.com/distubejs/ytdl-core/issues/144.
+[33mWARNING:[0m Could not parse n transform function.
+Please report this issue by uploading the "1783892732500-player-script.js" file on https://github.com/distubejs/ytdl-core/issues/144.
+ytdl error: Status code: 403
+خطأ: Error: MessageID should be of type string and not String.
+    at Object.<anonymous> [90m(/home/runner/workspace/[39mnode_modules/[4mws3-fca[24m/src/deltas/apis/messaging/sendMessage.js:106:61[90m)[39m
+    at api.sendMessage [90m(/home/runner/workspace/[39mindex.js:69:14[90m)[39m
+    at Timeout._onTimeout [90m(/home/runner/workspace/[39mevents/join.js:39:11[90m)[39m
+[90m    at listOnTimeout (node:internal/timers:581:17)[39m
+[90m    at process.processTimers (node:internal/timers:519:7)[39m
