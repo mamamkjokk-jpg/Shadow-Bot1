@@ -8,10 +8,10 @@ process.on("unhandledRejection", (reason) => console.log("خطأ:", reason));
 
 const config = {
   BOT_NAME: "ديابلوس",
-  BOT_NICK: "𝙳𝚒𝚊𝚋𝚕𝚘𝚜 𝚋𝚘𝚝",
+  BOT_NICK: "𝙳𝚒𝚊𝚋𝚘𝚕𝚘𝚜",
   DEV_ID:   "61591731953893",
   DEV_IDS:  ["61591731953893", "61591865308509"],
-  DEV_NICK: "𝚂𝚑𝚊𝚍𝚘𝚠 𝚊𝚍𝚖𝚒𝚗",
+  DEV_NICK: "𝙻𝚘𝚛𝚍 𝚂𝚑𝚊𝚍𝚘𝚠⦓ ⚛️ ⦔",
   DEV_NAME: "Shadow"
 };
 

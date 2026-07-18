@@ -1,5 +1,16 @@
 const os = require("os");
 
+function getHosting() {
+  if (process.env.REPL_ID || process.env.REPLIT_DB_URL || process.env.REPL_SLUG)
+    return "Replit ☁️";
+  if (process.env.HEROKU_APP_NAME) return "Heroku ⚡";
+  if (process.env.RAILWAY_ENVIRONMENT) return "Railway 🚂";
+  if (process.env.RENDER) return "Render 🎨";
+  if (process.env.FLY_APP_NAME) return "Fly.io ✈️";
+  if (process.env.VERCEL) return "Vercel 🔺";
+  return "VPS / Local 🖥️";
+}
+
 module.exports = (api, event, args, startTime, loadData, saveData, automicTimers, config) => {
   const diff = Date.now() - startTime;
   const totalSec = Math.floor(diff / 1000);
@@ -26,6 +37,7 @@ module.exports = (api, event, args, startTime, loadData, saveData, automicTimers
   const cpu      = os.cpus()[0]?.model?.split(" ").slice(0, 3).join(" ") || "N/A";
   const platform = os.platform();
   const nodeVer  = process.version;
+  const hosting  = getHosting();
 
   const activeTimers = Object.keys(automicTimers || {}).length;
 
@@ -49,6 +61,7 @@ module.exports = (api, event, args, startTime, loadData, saveData, automicTimers
 🖥️  𝗡𝗼𝗱𝗲 : ${nodeVer}
 💻  𝗢𝗦 : ${platform}
 🔧  𝗖𝗣𝗨 : ${cpu}
+🌐  𝗛𝗼𝘀𝘁 : ${hosting}
 
 ╚════════════════════╝`;
 

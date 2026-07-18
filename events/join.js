@@ -8,31 +8,38 @@ module.exports = (api, event, config, loadData, saveData, automicTimers, BOT_ID,
 
   if (!botJoined) return;
 
-  // ── Set nicknames ──────────────────────────────────────
+  // ── Set bot nickname ─────────────────────────────────────
   setTimeout(() => {
     try { api.setNickname(config.BOT_NICK, threadID, botID); } catch {}
   }, 600);
 
+  // ── Check & set dev nicknames ────────────────────────────
   setTimeout(async () => {
     try {
       const info = await api.getThreadInfo(threadID);
       const members = (info.participantIDs || []).map(String);
+      const nicknames = info.nicknames || info.customNicknames || {};
+
       for (const devID of config.DEV_IDS) {
-        if (members.includes(String(devID))) {
+        if (!members.includes(String(devID))) continue;
+        const current = nicknames[devID] || "";
+        if (current !== config.DEV_NICK) {
           api.setNickname(config.DEV_NICK, threadID, devID);
         }
       }
     } catch {}
   }, 1000);
 
-  // ── Step 1: رسالة انصعو ────────────────────────────────
-  setTimeout(() => { // 1.5s
+  // ── رسالة الدخول ────────────────────────────────────────
+  setTimeout(() => {
     try {
       const announce =
 `🌑━━━━━━━━━━━━━━━━━━━━━━━━━━━━🌑
 
-𝒶𝓃𝓈𝒶𝒶𝑜 𝓁𝒾 𝓈𝒶𝓎𝒾𝒹 𝒶𝓁-𝓏𝒽𝓁𝒶𝓁 𝓈𝒽𝒶𝒹𝑜𝓌
-انصاعو لسيد الظلال شادو أثناء حضوره 👁️
+𝘁𝘀𝗷𝗲𝗲𝗹 𝗱𝗸𝗵𝗼𝗼𝗹
+𝘿𝙄𝘼𝘽𝙊𝙇𝙊𝙎
+𝒮𝓊𝓅𝓇𝑒𝓂𝑒 𝒜𝓊𝓉𝒽𝑜𝓇𝒾𝓉𝓎
+🟢 𝗢𝗻𝗹𝗶𝗻𝗲
 
 🌑━━━━━━━━━━━━━━━━━━━━━━━━━━━━🌑`;
 
@@ -46,7 +53,7 @@ module.exports = (api, event, config, loadData, saveData, automicTimers, BOT_ID,
     } catch {}
   }, 1500);
 
-  // ── Step 2: رسالة معلومات البوت ────────────────────────
+  // ── رسالة معلومات البوت ──────────────────────────────────
   setTimeout(() => {
     try {
       const data = loadData();
@@ -68,7 +75,7 @@ module.exports = (api, event, config, loadData, saveData, automicTimers, BOT_ID,
       const info =
 `╔══〔 𝘿𝙞𝙖𝙗𝙡𝙤𝙨 𝘽𝙤𝙩 〕══╗
 
-🤖  𝗡𝗮𝗺𝗲 : 𝘿𝙞𝙖𝙗𝙡𝙤𝙨 𝘽𝙤𝙩
+🤖  𝗡𝗮𝗺𝗲 : 𝘿𝙞𝙖𝙗𝙤𝙡𝙤𝙨
 👑  𝗗𝗲𝘃  : 𝚂𝚑𝚊𝚍𝚘𝚠
 🆔  𝗗𝗲𝘃 𝗜𝗗𝘀 :
 ${devIDsList}
